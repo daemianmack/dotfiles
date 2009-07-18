@@ -1,0 +1,20 @@
+termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+# Caption  (use lastline for tabs)
+# caption always "%?%F%{-b gk}%:%{-b bb}%?%C | %D | %M %d |%H |%?%F%{-b gk}%? %L=%-Lw%45>%{-b kg}%n%f* %t%{-}%+Lw%-0<"
+
+# Hardstatus (update xterm title)
+hardstatus string "%H: %t"
+
+# terminfo and termcap for nice 256 color terminal
+# Allow bold colors - necessary for some reason
+attrcolor b ".I"
+
+# Tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# Erase background with current bg color
+defbce "on" 
+defutf8 "on"
+term "screen-256color"
