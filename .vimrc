@@ -1,5 +1,5 @@
-" 've declared .vimrc bankruptcy by snipping out all cargo-culted voodoo and am not including anything in here
-" that isn't documented and known good. This hardliner stance is expedited by the fact that I'm mostly using emacs these days.
+" I've declared .vimrc bankruptcy by snipping out all cargo-culted voodoo and am not including anything in here
+" that isn't documented and known-good. This hardliner stance is expedited nicely by the fact that I'm mostly using emacs these days.
 
 set nocompatible               " Make Vim default to nicer options
 syntax on                      " Enable syntax highlighting
@@ -54,7 +54,7 @@ au BufWinEnter *.* silent loadview
 
 
 
-map <C-W>] <C-W>]:tab split<CR>gT:q<CR>gt                                              " this makes ctrl-w ] (open tag) open the file in another tab, not buffer
+map <C-W>] <C-W>]:tab split<CR>gT:q<CR>gt                                              " This makes ctrl-w ] (open tag) open the file in another tab, not buffer
 map E 0i#j                                                                           " Comment current line with a #
 map e 0xj                                                                              " Uncomment current line (by deleting first character)
 map <F4> :set nohls!<CR>:set nohls?<CR>                                                " Toggle search highlighting with F4
