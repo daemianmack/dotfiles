@@ -123,5 +123,9 @@ function showcolors()
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
+# MySQL prompt:
+# mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
+# BASH prompt: 
+# (dmack@ming)       (~/dotfiles)        (12:57:38)
 export PS1="\n\n\[\033[0;32m\](\[\033[0;37m\]\u@\h\[\033[0;32m\])       (\[\033[0;32m\]\w\[\033[0;32m\])        (\[\033[0;32m\]\t\[\033[0;32m\]) \[\033[0m\]\n";
