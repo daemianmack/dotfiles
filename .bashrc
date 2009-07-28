@@ -58,7 +58,7 @@ alias j='jobs -l'
 alias mv='mv -i'
 alias p='ps auxw'
 alias rm='rm -i'
-alias s="fh && kill -STOP %`jobs -l | grep procmail | sed -e 's/^\[\(.\)\].*/\1/'` && ruby -I $HOME/sup/lib $HOME/sup/bin/sup && bg %`jobs -l | grep procmail | sed -e 's/^\[\(.\)\].*/\1/'` && fh"
+alias s='kill -STOP %?procmail.log; fh; ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
 alias tail='tail -n 100'
 alias vi='vim -X'
 
