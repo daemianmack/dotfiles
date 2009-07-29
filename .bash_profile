@@ -9,6 +9,15 @@ umask 077
 /usr/bin/keychain ~/.ssh/id_rsa
 source ~/.keychain/$HOSTNAME-sh > /dev/null
 
+# Accommodate MacPorts' use of ~/.profile
+case `uname` in
+  Darwin)
+    if [ -f ~/.profile ]; then
+        source ~/.profile
+    fi
+    ;;
+esac
+
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
