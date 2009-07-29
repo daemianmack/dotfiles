@@ -18,13 +18,14 @@ export TERMINFO=~/.terminfo
 case `uname` in
   Linux)
     export LS_OPTIONS='--color=auto -p'
+    eval `dircolors`
     ;;
   Darwin)
     export LS_OPTIONS='-G'
     ;;
 esac
 
-eval `dircolors`
+
 
 alias ls='ls $LS_OPTIONS'
 alias l='ls $LS_OPTIONS -lhF'		  # ls without dotfiles
