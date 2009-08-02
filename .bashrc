@@ -4,13 +4,13 @@
 export LC_CTYPE=en_US
 export HISTCONTROL=ignoredups
 export HISTSIZE=10000
-shopt -s histappend # don't overwrite the older history file on exit -- append to it
-shopt -s checkwinsize # avoids crappy linewrapping overwrite
+shopt -s histappend # Don't overwrite the older history file on exit -- append to it.
+shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
 export EDITOR=emacs
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
 
-#from screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
-#this should enable arrow keys and end keys and such inside vim inside screen
+# From screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
+# This should enable arrow keys and end keys and such inside vim inside screen.
 export TERMINFO=~/.terminfo
 
 
@@ -55,7 +55,7 @@ alias ff='find . -name $1'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 
 alias f='fetchmail -d 1200'
-alias fh='fetchmail' # this will HUP an existing fetchmail daemon and grab new mail
+alias fh='fetchmail' # This will HUP an existing fetchmail daemon and grab new mail.
 
 alias bt='btdownloadcurses.py --max_uploads 1 --max_upload_rate 5'
 alias cp='cp -i'
@@ -92,8 +92,7 @@ function frob {
 
 function showcolors()
 {
-       # Display ANSI colours.
-       #
+    # Display ANSI colours.
     esc="\033["
     echo -e "\t  40\t   41\t   42\t    43\t      44       45\t46\t 47"
     for fore in 30 31 32 33 34 35 36 37; do
