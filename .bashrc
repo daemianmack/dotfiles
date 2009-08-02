@@ -7,7 +7,7 @@ export HISTSIZE=10000
 shopt -s histappend # don't overwrite the older history file on exit -- append to it
 shopt -s checkwinsize # avoids crappy linewrapping overwrite
 export EDITOR=emacs
-export LESS=$'-i -W -n  -z-4 -g -e -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
+export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
 
 #from screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
 #this should enable arrow keys and end keys and such inside vim inside screen
@@ -21,7 +21,10 @@ case `uname` in
     eval `dircolors`
     ;;
   Darwin)
+    # Enable colors in ls.
     export LS_OPTIONS='-G'
+    # Change default color for directories.
+    export LSCOLORS='Exfxcxdxbxegedabagacad'
     ;;
 esac
 
@@ -45,6 +48,7 @@ function za() {
 alias ..='za ..'
 
 alias d='ls -Lla|grep ^d'
+alias e='emacsclient'
 alias pd='pushd'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name $1'
