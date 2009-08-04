@@ -49,6 +49,8 @@ alias ..='za ..'
 
 alias d='ls -Lla|grep ^d'
 alias e='emacsclient'
+alias f='find . | grep -v ".git"'
+alias i='ipython2.6'
 alias pd='pushd'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name $1'
