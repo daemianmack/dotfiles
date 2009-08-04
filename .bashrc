@@ -54,7 +54,7 @@ alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name $1'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 
-alias f='fetchmail -d 1200'
+alias fm='fetchmail -d 1200'
 alias fh='fetchmail' # This will HUP an existing fetchmail daemon and grab new mail.
 
 alias bt='btdownloadcurses.py --max_uploads 1 --max_upload_rate 5'
