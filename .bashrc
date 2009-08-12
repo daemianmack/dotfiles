@@ -70,6 +70,7 @@ alias s='kill -STOP %?procmail.log; fh; ruby -I /home/vasudeva/sup/lib /home/vas
 alias tail='tail -n 100'
 alias vi='vim -X'
 
+alias tc='/opt/local/bin/yasql corp/corp@testdb'
 
 
 function tree()
@@ -137,4 +138,4 @@ export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 # (dmack@ming)       (~/dotfiles)        (12:57:38)
 export PS1="\n\n\[\033[0;32m\](\[\033[0;37m\]\u@\h\[\033[0;32m\])       (\[\033[0;32m\]\w\[\033[0;32m\])        (\[\033[0;32m\]\t\[\033[0;32m\]) \[\033[0m\]\n";
 
-export PYTHONPATH=$PYTHONPATH:$HOME/work
+export PYTHONPATH=$PYTHONPATH:$HOME/src/git
