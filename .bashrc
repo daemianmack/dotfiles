@@ -1,4 +1,4 @@
-# If not running interactively, don't do anything:
+># If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
 
 export LC_CTYPE=en_US
@@ -130,6 +130,12 @@ function showcolors()
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
+
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
@@ -138,3 +144,9 @@ export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 export PS1="\n\n\[\033[0;32m\](\[\033[0;37m\]\u@\h\[\033[0;32m\])       (\[\033[0;32m\]\w\[\033[0;32m\])        (\[\033[0;32m\]\t\[\033[0;32m\]) \[\033[0m\]\n";
 
 export PYTHONPATH=$PYTHONPATH:$HOME/work
+export ORACLE_HOME=/opt/oracle
+export TNS_ADMIN=$ORACLE_HOME
+# Darwin
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
+# Linux
+export LD_LIBRARY_PATH=$ORACLE_HOME
