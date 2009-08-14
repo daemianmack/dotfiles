@@ -1,4 +1,4 @@
-># If not running interactively, don't do anything:
+# If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
 
 export LC_CTYPE=en_US
