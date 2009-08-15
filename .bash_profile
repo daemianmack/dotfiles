@@ -4,10 +4,11 @@
 # u+rw for files, u+rwx for directories you own. go-rwx for your files and directories. 
 umask 077
 
-#on this next line, we start keychain and point it to the private keys that
-#we'd like it to cache
-/usr/bin/keychain ~/.ssh/id_rsa
-source ~/.keychain/$HOSTNAME-sh > /dev/null
+#  If we have keychain, start it and point it to the private keys that we'd like it to cache.
+if [ -f /usr/bin/keychain ]; then
+    /usr/bin/keychain ~/.ssh/id_rsa
+    source ~/.keychain/$HOSTNAME-sh > /dev/null
+fi
 
 # Accommodate MacPorts' use of ~/.profile
 case `uname` in
