@@ -126,8 +126,31 @@ function showcolors()
 
 
 
+# Lend human-readable names to ANSI color-code escape sequences.
+RS="\[\033[0m\]"         # reset
+HC="\[\033[1m\]"         # hicolor
+UL="\[\033[4m\]"         # underline
+INV="\[\033[7m\]"        # inverse background and foreground
+FBLACK="\[\033[30m\]"    # foreground black
+FRED="\[\033[31m\]"      # foreground red
+FGREEN="\[\033[32m\]"    # foreground green
+FYELLOW="\[\033[33m\]"   # foreground yellow
+FBLUE="\[\033[34m\]"     # foreground blue
+FMAGENTA="\[\033[35m\]"  # foreground magenta
+FCYAN="\[\033[36m\]"     # foreground cyan
+FWHITE="\[\033[37m\]"    # foreground white
+BBLACK="\[\033[40m\]"    # background black
+BRED="\[\033[41m\]"      # background red
+BGREEN="\[\033[42m\]"    # background green
+BYELLOW="\[\033[43m\]"   # background yellow
+BBLUE="\[\033[44m\]"     # background blue
+BMAGENTA="\[\033[45m\]"  # background magenta
+BCYAN="\[\033[46m\]"     # background cyan
+BWHITE="\[\033[47m\]"    # background white
 
-# make less more friendly for non-text input files, see lesspipe(1)
+
+
+# Make less more friendly for non-text input files, see lesspipe(1).
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
@@ -137,12 +160,19 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 
+
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
+
 # BASH prompt: 
-# (dmack@ming)       (~/dotfiles)        (12:57:38)
-export PS1="\n\n\[\033[0;32m\](\[\033[0;37m\]\u@\h\[\033[0;32m\])       (\[\033[0;32m\]\w\[\033[0;32m\])        (\[\033[0;32m\]\t\[\033[0;32m\]) \[\033[0m\]\n";
+# (dmack@ming)       (~/dotfiles) git-branch        (12:57:38)
+PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
+PS1=$PS1"$FGREEN(\w)$RS "                         # (cwd)
+PS1=$PS1"$HC$FBLUE"                               # Set up colors for git-branch token.
+PS1=$PS1'($(__git_ps1 "%s"))'                     # git-branch token -- how to do escape codes inside double quotes?
+PS1=$PS1"$RS      "                               # Reset color from git-branch token, and <faketab>.
+PS1=$PS1"$FGREEN(\t)$RS \n"                       # (time) <newline>
 
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
 export ORACLE_HOME=/opt/oracle
