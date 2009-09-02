@@ -66,7 +66,7 @@ alias j='jobs -l'
 alias mv='mv -i'
 alias p='ps auxw'
 alias rm='rm -i'
-alias s='kill -STOP %?procmail.log; fh; ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
+alias s='kill -STOP %?procmail.log; fh; SUP_INDEX=xapian ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
 alias tail='tail -n 100'
 alias vi='vim -X'
 
