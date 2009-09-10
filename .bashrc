@@ -72,6 +72,11 @@ alias vi='vim -X'
 
 alias tc='/opt/local/bin/yasql corp/corp@testdb'
 
+# git!
+alias ga='git add'
+alias gs='git status'
+alias gl='git log'
+alias gc='git commit -m'
 
 function tree()
 {
