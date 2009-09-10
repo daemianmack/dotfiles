@@ -53,7 +53,7 @@ alias f='find . | grep -v ".git"'
 alias i='ipython2.6'
 alias pd='pushd'
 alias mega='du -ah|grep '[0-9]M' '
-alias ff='find . -name $1'
+alias ff='find . -name "$@"'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 
 alias fm='fetchmail -d 1200'
