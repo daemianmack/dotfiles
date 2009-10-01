@@ -191,7 +191,9 @@ export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
 PS1=$PS1"$FGREEN(\w)$RS "                         # (cwd)
 PS1=$PS1"$HC$FBLUE"                               # Set up colors for git-branch token.
-PS1=$PS1'($(__git_ps1 "%s"))'                     # git-branch token -- how to do escape codes inside double quotes?
+# git-branch token -- how to do escape codes inside double quotes? 
+# __git_ps1 needs git bash completion from git project source.
+PS1=$PS1' $(__git_ps1 "%s")'
 PS1=$PS1"$RS      "                               # Reset color from git-branch token, and <faketab>.
 PS1=$PS1"$FGREEN(\t)$RS \n"                       # (time) <newline>
 
