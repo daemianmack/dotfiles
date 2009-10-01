@@ -8,6 +8,7 @@ shopt -s histappend # Don't overwrite the older history file on exit -- append t
 shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
 export EDITOR=emacs
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
+export CDPATH=".:~:~/src/git" # I cd into these dirs a lot.
 
 # From screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
 # This should enable arrow keys and end keys and such inside vim inside screen.
@@ -53,7 +54,7 @@ alias f='find . | grep -v ".git"'
 alias i='ipython2.6'
 alias pd='pushd'
 alias mega='du -ah|grep '[0-9]M' '
-alias ff='find . -name $1'
+alias ff='find . -name "$@"'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 
 alias fm='fetchmail -d 1200'
@@ -66,11 +67,26 @@ alias j='jobs -l'
 alias mv='mv -i'
 alias p='ps auxw'
 alias rm='rm -i'
-alias s='kill -STOP %?procmail.log; fh; ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
+alias s='kill -STOP %?procmail.log; fh; SUP_INDEX=xapian ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
 alias tail='tail -n 100'
 alias vi='vim -X'
 
 alias tc='/opt/local/bin/yasql corp/corp@testdb'
+
+# git!
+alias ga='git add -p'
+alias gc='git commit -m'
+alias gd='git diff'
+alias gl='git log'
+alias gp='git pull'
+alias gs='git status'
+
+function gps {
+    # Do a quick git pull for given directories.
+    cd ~/src/git/$@
+    git pull
+    cd -
+}
 
 
 function tree()
@@ -126,16 +142,66 @@ function showcolors()
 
 
 
+# Lend human-readable names to ANSI color-code escape sequences.
+RS="\[\033[0m\]"         # reset
+HC="\[\033[1m\]"         # hicolor
+UL="\[\033[4m\]"         # underline
+INV="\[\033[7m\]"        # inverse background and foreground
+FBLACK="\[\033[30m\]"    # foreground black
+FRED="\[\033[31m\]"      # foreground red
+FGREEN="\[\033[32m\]"    # foreground green
+FYELLOW="\[\033[33m\]"   # foreground yellow
+FBLUE="\[\033[34m\]"     # foreground blue
+FMAGENTA="\[\033[35m\]"  # foreground magenta
+FCYAN="\[\033[36m\]"     # foreground cyan
+FWHITE="\[\033[37m\]"    # foreground white
+BBLACK="\[\033[40m\]"    # background black
+BRED="\[\033[41m\]"      # background red
+BGREEN="\[\033[42m\]"    # background green
+BYELLOW="\[\033[43m\]"   # background yellow
+BBLUE="\[\033[44m\]"     # background blue
+BMAGENTA="\[\033[45m\]"  # background magenta
+BCYAN="\[\033[46m\]"     # background cyan
+BWHITE="\[\033[47m\]"    # background white
 
-# make less more friendly for non-text input files, see lesspipe(1)
+
+
+# Make less more friendly for non-text input files, see lesspipe(1).
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+
+# Linux
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# Darwin
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+fi
+
 
 
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
+
 # BASH prompt: 
-# (dmack@ming)       (~/dotfiles)        (12:57:38)
-export PS1="\n\n\[\033[0;32m\](\[\033[0;37m\]\u@\h\[\033[0;32m\])       (\[\033[0;32m\]\w\[\033[0;32m\])        (\[\033[0;32m\]\t\[\033[0;32m\]) \[\033[0m\]\n";
+# (dmack@ming)       (~/dotfiles) git-branch        (12:57:38)
+PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
+PS1=$PS1"$FGREEN(\w)$RS "                         # (cwd)
+PS1=$PS1"$HC$FBLUE"                               # Set up colors for git-branch token.
+# git-branch token -- how to do escape codes inside double quotes? 
+# __git_ps1 needs git bash completion from git project source.
+PS1=$PS1' $(__git_ps1 "%s")'
+PS1=$PS1"$RS      "                               # Reset color from git-branch token, and <faketab>.
+PS1=$PS1"$FGREEN(\t)$RS \n"                       # (time) <newline>
 
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
+export ORACLE_HOME=/opt/oracle
+export TNS_ADMIN=$ORACLE_HOME
+# Darwin
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
+# Linux
+export LD_LIBRARY_PATH=$ORACLE_HOME
+
