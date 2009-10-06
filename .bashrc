@@ -170,18 +170,6 @@ BWHITE="\[\033[47m\]"    # background white
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
-# Linux
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-# Darwin
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-fi
-
-
-
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
