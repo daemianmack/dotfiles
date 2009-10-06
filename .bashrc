@@ -6,7 +6,7 @@ export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 shopt -s histappend # Don't overwrite the older history file on exit -- append to it.
 shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
-export EDITOR=emacs
+export EDITOR='emacsclient -n -a emacs'
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
 export CDPATH=".:~:~/src/git" # I cd into these dirs a lot.
 
@@ -49,7 +49,7 @@ function za() {
 alias ..='za ..'
 
 alias d='ls -Lla|grep ^d'
-alias e='emacsclient'
+alias ec='emacsclient -n -a emacs'
 alias f='find . | grep -v ".git"'
 alias i='ipython2.6'
 alias pd='pushd'
