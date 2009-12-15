@@ -1,3 +1,4 @@
+
 # If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
 
@@ -71,6 +72,8 @@ alias s='kill -STOP %?procmail.log; fh; SUP_INDEX=xapian ruby -I /home/vasudeva/
 alias tail='tail -n 100'
 alias vi='vim -X'
 
+# ipython's edit function needs to wait for emacs to return the buffer.
+alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
 alias tc='/opt/local/bin/yasql corp/corp@testdb'
 
 # git!
