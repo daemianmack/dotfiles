@@ -196,3 +196,6 @@ export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
 # Linux
 export LD_LIBRARY_PATH=$ORACLE_HOME
 
+# virtualenv stuff...
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_bashrc
