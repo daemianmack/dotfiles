@@ -35,3 +35,7 @@ if [ -d ~/bin ] ; then
     PATH="~/bin:${PATH}"
 fi
 
+# Include /opt/local/bin in my $PATH if it exists
+if [ -d /opt/local/bin ] ; then
+    PATH="${PATH}:/opt/local/bin"
+fi
