@@ -26,9 +26,21 @@ if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
 
+
 if [ -f ~/.bash_completes ]; then
     source ~/.bash_completes
 fi
+
+# Linux
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# Darwin
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+fi
+
 
 # include my ~/bin in my $PATH
 if [ -d ~/bin ] ; then

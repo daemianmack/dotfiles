@@ -1,3 +1,4 @@
+
 # If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
 
@@ -6,7 +7,7 @@ export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 shopt -s histappend # Don't overwrite the older history file on exit -- append to it.
 shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
-export EDITOR=emacs
+export EDITOR='emacsclient -n -a emacs'
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
 export CDPATH=".:~:~/src/git" # I cd into these dirs a lot.
 
@@ -49,7 +50,7 @@ function za() {
 alias ..='za ..'
 
 alias d='ls -Lla|grep ^d'
-alias e='emacsclient'
+alias ec='emacsclient -n -a emacs'
 alias f='find . | grep -v ".git"'
 alias i='ipython2.6'
 alias pd='pushd'
@@ -71,6 +72,8 @@ alias s='kill -STOP %?procmail.log; fh; SUP_INDEX=xapian ruby -I /home/vasudeva/
 alias tail='tail -n 100'
 alias vi='vim -X'
 
+# ipython's edit function needs to wait for emacs to return the buffer.
+alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
 alias tc='/opt/local/bin/yasql corp/corp@testdb'
 
 # git!
@@ -170,18 +173,6 @@ BWHITE="\[\033[47m\]"    # background white
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
-# Linux
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-# Darwin
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-fi
-
-
-
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
@@ -205,3 +196,6 @@ export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
 # Linux
 export LD_LIBRARY_PATH=$ORACLE_HOME
 
+# virtualenv stuff...
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_bashrc
