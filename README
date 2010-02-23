@@ -1,7 +1,10 @@
 New machine?
 
 # For all files in the new dotfiles folder
-# Subtracting . and .. 
+# Subtracting . and ..
 # Subtracting .git
 # Create a symlink in my homedir.
+
+Add -f switch to --force a clobber.
+
 for f in $(ls -a1 dotfiles | grep -v \\.\$ | grep -v \.git\$); do ln -s ~/dotfiles/$f ~; done;
