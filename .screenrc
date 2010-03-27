@@ -21,7 +21,7 @@ termcapinfo xterm-256color "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
 # Erase background with current bg color
 defbce "on" 
 defutf8 "on"
-#term "screen-256color"
+term "xterm-256color"
 
 
 # emacs keybindings for navigation in copy mode
