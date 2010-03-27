@@ -184,7 +184,11 @@ PS1=$PS1"$FGREEN(\w)$RS "                         # (cwd)
 PS1=$PS1"$HC$FBLUE"                               # Set up colors for git-branch token.
 # git-branch token -- how to do escape codes inside double quotes? 
 # __git_ps1 needs git bash completion from git project source.
-PS1=$PS1' $(__git_ps1 "%s")'
+# Darwin
+if [ -f /opt/local/etc/bash_completion.d/git-completion.bash ]; then
+    . /opt/local/etc/bash_completion.d/git-completion.bash
+    PS1=$PS1' $(__git_ps1 "%s")'
+fi
 PS1=$PS1"$RS      "                               # Reset color from git-branch token, and <faketab>.
 PS1=$PS1"$FGREEN(\t)$RS \n"                       # (time) <newline>
 
