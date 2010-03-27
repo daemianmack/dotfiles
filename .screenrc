@@ -1,5 +1,8 @@
-termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
-termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+defscrollback 8000 
+escape ``
+
+#termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+#termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
 
 # Caption  (use lastline for tabs)
 # caption always "%?%F%{-b gk}%:%{-b bb}%?%C | %D | %M %d |%H |%?%F%{-b gk}%? %L=%-Lw%45>%{-b kg}%n%f* %t%{-}%+Lw%-0<"
