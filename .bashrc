@@ -2,7 +2,8 @@
 # If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
 
-export LC_CTYPE=en_US
+export LANG=C
+export LC_ALL=C
 export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 shopt -s histappend # Don't overwrite the older history file on exit -- append to it.
