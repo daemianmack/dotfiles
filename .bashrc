@@ -85,6 +85,11 @@ alias gl='git log'
 alias gp='git pull'
 alias gs='git status'
 
+function gtb() {
+    # Checkout tracking branch.
+    git checkout -b $1 --track origin/$1
+}
+
 function gps {
     # Do a quick git pull for given directories.
     cd ~/src/git/$@
