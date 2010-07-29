@@ -5,6 +5,10 @@
 if [ -f /usr/bin/keychain ]; then
     /usr/bin/keychain ~/.ssh/id_rsa
     source ~/.keychain/$HOSTNAME-sh > /dev/null
+else
+    echo ""
+    echo "keychain not yet installed!"
+    echo ""
 fi
 
 # Accommodate MacPorts' use of ~/.profile

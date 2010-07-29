@@ -77,7 +77,7 @@ application/postscript; konqueror '%s'; test=test "$DISPLAY" != "" && test=expr 
 audio/x-pn-mp3; realplayer '%s'; test=test "$DISPLAY" != ""
 text/plain; more '%s'; needsterminal
 # sup uses the following to launch HTML attachments in w3m.
-text/html; /usr/bin/w3m -T text/html '%s'; needsterminal; edit=vim '%s'; description="Web Page"; nametemplate=%s.html
+text/html; /usr/bin/w3m -o show_cookie=False -o confirm_qq=False -T text/html '%s'; needsterminal; edit=vim '%s'; description="Web Page"; nametemplate=%s.html
 text/html; /usr/bin/w3m '%s'; needsterminal; description=HTML Text; nametemplate=%s.html; copiousoutput
 text/html; /usr/bin/elinks '%s'; needsterminal; description=HTML Text; nametemplate=%s.html
 text/htm; /usr/bin/elinks '%s'; needsterminal; description=HTML Text; nametemplate=%s.html
