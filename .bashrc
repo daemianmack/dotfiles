@@ -48,13 +48,16 @@ function za() {
 	ls -al $LS_OPTIONS;
 }
 
+alias cd='za'
 alias ..='za ..'
+alias pu='pushd'
+alias po='popd'
+alias -- -='cd -'
+alias ui='pushd ~/src/git/cloud-ui'
 
 alias d='ls -Lla|grep ^d'
 alias ec='emacsclient -n -a emacs'
 alias f='find . | grep -v ".git"'
-alias i='ipython2.6'
-alias pd='pushd'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name "$@"'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
