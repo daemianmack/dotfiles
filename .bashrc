@@ -44,7 +44,7 @@ alias lsd='ls $LS_OPTIONS -lhF|grep /'	  # Just:    Dirs...
 alias lsf='ls $LS_OPTIONS -lhF|grep -v /' #          Files...
 
 function za() {
-	cd $*;
+	\cd $*;
 	ls -al $LS_OPTIONS;
 }
 
