@@ -89,6 +89,12 @@ alias gp='git pull'
 alias gs='git status'
 
 alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
+
+function gdd() {
+    # Diff a SHA against its parent.
+    git diff $1^ $1
+}
+
 function gtb() {
     # Checkout tracking branch.
     git checkout -b $1 --track origin/$1
