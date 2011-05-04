@@ -88,6 +88,7 @@ alias gl='git log'
 alias gp='git pull'
 alias gs='git status'
 
+alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
 function gtb() {
     # Checkout tracking branch.
     git checkout -b $1 --track origin/$1
