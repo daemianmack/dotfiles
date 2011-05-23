@@ -20,4 +20,6 @@
   changed = green
   untracked = cyan
 [push]
-	default = matching
+  default = matching
+[merge]
+  conflictstyle = diff3
