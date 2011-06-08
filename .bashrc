@@ -195,20 +195,61 @@ BWHITE="\[\033[47m\]"    # background white
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 
-# BASH prompt: 
-# (dmack@ming)       (~/dotfiles) git-branch        (12:57:38)
-PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
-PS1=$PS1"$FGREEN(\w)$RS "                         # (cwd)
-PS1=$PS1"$HC$FBLUE"                               # Set up colors for git-branch token.
-# git-branch token -- how to do escape codes inside double quotes? 
-# __git_ps1 needs git bash completion from git project source.
-# Darwin
-if [ -f /opt/local/etc/bash_completion.d/git-completion.bash ]; then
-    . /opt/local/etc/bash_completion.d/git-completion.bash
-    PS1=$PS1' $(__git_ps1 "%s")'
-fi
-PS1=$PS1"$RS      "                               # Reset color from git-branch token, and <faketab>.
-PS1=$PS1"$FGREEN(\t)$RS \n"                       # (time) <newline>
+
+
+function parse_git_branch {
+    git_status="$1"
+    branch_pattern="^# On branch ([^${IFS}]*)"
+    if [[ "$git_status" =~ ${branch_pattern} ]]; then
+        branch=${BASH_REMATCH[1]}
+        echo "(${branch})        "
+    fi
+}
+
+function parse_git_symbol {
+    git_status="$1"
+    branch_pattern="^# On branch ([^${IFS}]*)"
+    remote_pattern="# Your branch is (.*) of"
+    diverge_pattern="# Your branch and (.*) have diverged"
+    if [[ ! ${git_status} =~ "working directory clean" ]]; then
+        state="${FRED}⚡" # Red text should be annoying.
+    fi
+    # add an else if or two here if you want to get more specific
+    if [[ ${git_status} =~ ${remote_pattern} ]]; then
+        if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+            remote="${FYELLOW}↑"
+        else
+            remote="${FYELLOW}↓"
+        fi
+    fi
+    if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+        remote="${FYELLOW}↕"
+    fi
+    if [[ ${git_status} =~ ${branch_pattern} ]]; then
+        branch=${BASH_REMATCH[1]}
+        echo "${remote}${state}"
+    fi
+}
+ 
+function prompt_func() {
+    # BASH prompt: 
+    # (dmack@ming)       (~/dotfiles)      (git-branch if git repo)         (12:57:38)
+    # git-symbol if git repo [cursor]
+
+    git rev-parse --git-dir &> /dev/null
+    git_status="$(git status 2> /dev/null)"
+    branch=$(parse_git_branch "$git_status")
+    branch="${branch}"
+    symbol=$(parse_git_symbol "$git_status")
+
+    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
+    PS1=$PS1"$FGREEN(\w)$RS        "                  # (cwd) <faketab>
+    PS1=$PS1"$HC$FBLUE$branch$RS"                     # git-branch token if in a git repo
+    PS1=$PS1"$FGREEN(\t)$RS"                          # time
+    PS1=$PS1"\n$symbol"                               # git-symbol token
+}
+ 
+PROMPT_COMMAND=prompt_func 
 
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
 export ORACLE_HOME=/opt/oracle
