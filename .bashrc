@@ -209,7 +209,7 @@ function parse_git_branch {
 function parse_git_symbol {
     git_status="$1"
     branch_pattern="^# On branch ([^${IFS}]*)"
-    remote_pattern="# Your branch is (.*) of"
+    remote_pattern="# Your branch is (.*)"
     diverge_pattern="# Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
         state="${FRED}⚡" # Red text should be annoying.
