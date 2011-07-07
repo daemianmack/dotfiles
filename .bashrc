@@ -246,7 +246,7 @@ function prompt_func() {
     PS1=$PS1"$FGREEN(\w)$RS        "                  # (cwd) <faketab>
     PS1=$PS1"$HC$FBLUE$branch$RS"                     # git-branch token if in a git repo
     PS1=$PS1"$FGREEN(\t)$RS"                          # time
-    PS1=$PS1"\n$symbol"                               # git-symbol token
+    PS1=$PS1"\n$symbol$RS "                            # git-symbol token
 }
  
 PROMPT_COMMAND=prompt_func 
