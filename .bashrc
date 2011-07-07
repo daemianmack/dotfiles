@@ -89,6 +89,7 @@ alias gp='git pull'
 alias gs='git status'
 alias gba='git branch -a'
 alias gg='git grep'
+alias gcm='git checkout master'
 alias c='cd /home/daemian/src/git/cloud-ui'
 alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
 
