@@ -90,6 +90,7 @@ alias gs='git status'
 alias gba='git branch -a'
 alias gg='git grep'
 alias gcm='git checkout master'
+alias gc-="git checkout \$(git reflog | grep 'checkout: moving from' | head -n 1 | awk {'print \$6'})" # Checkout last-checked-out branch.
 alias c='cd /home/daemian/src/git/cloud-ui'
 alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
 
