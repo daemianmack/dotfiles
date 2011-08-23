@@ -96,7 +96,8 @@ alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
 
 function gdd() {
     # Diff a SHA against its parent.
-    git diff $1^ $1
+    sha=${1:-HEAD} # Default if not passed.
+    git diff ${sha}^ ${sha}
 }
 
 function gtb() {
