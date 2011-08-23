@@ -102,7 +102,7 @@ function gdd() {
 
 function gtb() {
     # Checkout tracking branch.
-    git checkout -b $1 --track origin/$1
+    git checkout -b $1 --track remotes/origin/$1
 }
 
 function gps {
