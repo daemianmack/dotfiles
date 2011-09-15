@@ -1,0 +1,37 @@
+# Commentary from http://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/
+
+# This one is pretty obvious from the name; when completing case will not be taken into consideration.
+# Example:
+# $ ls
+# longFileNameLINUX-2.6.37-4  longFileNameLINUX-2.6.37-7  longFileNameLINUX-2.6.38-11  VeryCompliCATEDfileNAME.txt
+# longFileNameLINUX-2.6.37-6  longFileNameLINUX-2.6.37-8  longFileNameLINUX-2.6.38-9
+# $ ls very<TAB>
+# $ ls VeryCompliCATEDfileNAME.txt
+set completion-ignore-case on
+
+# This one is insanely useful when you have a folder with lots of similarly named files and you are not sure how far the completion has gone when you press TAB. The first part that has been completed will be replaced by "...", and it is simple to see what you need to type to finish the completion.
+# Example:
+# $ ls
+# longFileNameLINUX-2.6.37-4  longFileNameLINUX-2.6.37-7  longFileNameLINUX-2.6.38-11  VeryCompliCATEDfileNAME.txt
+# longFileNameLINUX-2.6.37-6  longFileNameLINUX-2.6.37-8  longFileNameLINUX-2.6.38-9
+# $ ls long<TAB>
+# ...7-4   ...7-6   ...7-7   ...7-8   ...8-11  ...8-9
+# $ ls longFileNameLINUX-2.6.3
+set completion-prefix-display-length 2
+
+# These two will make Ctrl-j and Ctrl-k to cycle through the available completions. This is useful when you get a small number of possible completions (say 2-4), and you know it would be faster to simply cycle through them with a few keypresses, than to actually type it out.
+# Example:
+# $ ls
+# cfg-common.h  cfg-mencoder.h  cfg-mplayer-def.h  cfg-mplayer.h
+# $ ls cfg<TAB>
+# ...common.h       ...mencoder.h     ...mplayer-def.h  ...mplayer.h
+# $ ls cfg-<Press ctrl-j three times>
+# $ ls cfg-mplayer-def.h
+# (As a bonus, in this particular example where there happened to be only four files in the directory, I could've actually just done this instead:)
+# $ ls <Press ctrl-j three times>
+# $ ls cfg-mplayer-def.h
+Control-j: menu-complete
+Control-k: menu-complete-backward
+
+# With this enabled, underscores and hyphens are treated equally when completing, which is a plus to me because I find hyphens a lot easier to type.
+set completion-map-case on
