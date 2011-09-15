@@ -53,7 +53,6 @@ alias ..='za ..'
 alias pu='pushd'
 alias po='popd'
 alias -- -='cd -'
-alias ui='pushd ~/src/git/cloud-ui'
 
 alias d='ls -Lla|grep ^d'
 alias ec='emacsclient -n -a emacs'
@@ -65,7 +64,6 @@ alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 alias fm='fetchmail -d 1200'
 alias fh='fetchmail' # This will HUP an existing fetchmail daemon and grab new mail.
 
-alias bt='btdownloadcurses.py --max_uploads 1 --max_upload_rate 5'
 alias cp='cp -i'
 alias h='history'
 alias j='jobs -l'
@@ -78,7 +76,6 @@ alias vi='vim -X'
 
 # ipython's edit function needs to wait for emacs to return the buffer.
 alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
-alias tc='/opt/local/bin/yasql corp/corp@testdb'
 
 # git!
 alias ga='git add -p'
@@ -91,8 +88,6 @@ alias gba='git branch -a'
 alias gg='git grep'
 alias gcm='git checkout master'
 alias gc-="git checkout \$(git reflog | grep 'checkout: moving from' | head -n 1 | awk {'print \$6'})" # Checkout last-checked-out branch.
-alias c='cd /home/daemian/src/git/cloud-ui'
-alias cld="/home/daemian/src/git/cloud-ui/cloud.sh"
 
 function gdd() {
     # Diff a SHA against its parent.
