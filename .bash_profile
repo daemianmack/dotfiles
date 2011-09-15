@@ -55,3 +55,4 @@ fi
 if [ -d /opt/local/bin ] ; then
     PATH="${PATH}:/opt/local/bin"
 fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
