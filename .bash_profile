@@ -20,6 +20,19 @@ case `uname` in
     ;;
 esac
 
+# include my ~/bin in my $PATH
+if [ -d ~/bin ] ; then
+    PATH="~/bin:${PATH}"
+fi
+
+# Include /opt/local/bin in my $PATH if it exists
+if [ -d /opt/local/bin ] ; then
+    PATH="${PATH}:/opt/local/bin"
+fi
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
@@ -46,13 +59,3 @@ if [ -f /opt/local/etc/bash_completion ]; then
 fi
 
 
-# include my ~/bin in my $PATH
-if [ -d ~/bin ] ; then
-    PATH="~/bin:${PATH}"
-fi
-
-# Include /opt/local/bin in my $PATH if it exists
-if [ -d /opt/local/bin ] ; then
-    PATH="${PATH}:/opt/local/bin"
-fi
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
