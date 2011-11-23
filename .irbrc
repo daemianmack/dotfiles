@@ -17,6 +17,19 @@ HASH = {
   :letter => 'V', :fruit => 'nectarine'} unless defined?(HASH)
 ARRAY = HASH.keys unless defined?(ARRAY)
 
+# More like that.
+class Array
+  def self.toy(n=10, &block)
+    block_given? ? Array.new(n,&block) : Array.new(n) {|i| i+1}
+  end
+end
+
+class Hash
+  def self.toy(n=10)
+    Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
+  end
+end
+
 # History shit from http://dotfiles.org/~topfunky/.irbrc
 def history_dump(how_many = 250)
   history_size = Readline::HISTORY.size
