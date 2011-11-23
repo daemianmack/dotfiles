@@ -242,8 +242,7 @@ function prompt_func() {
     branch="${branch}"
     symbol=$(parse_git_symbol "$git_status")
 
-    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN)$RS       "  # <newline> <newline> (username@hostname) <faketab>
-    PS1=$PS1"$FGREEN(\w)$RS        "                  # (cwd) <faketab>
+    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       "  # <newline> <newline> (username@hostname) <faketab>
     PS1=$PS1"$HC$FBLUE$branch$RS"                     # git-branch token if in a git repo
     PS1=$PS1"$FGREEN(\t)$RS"                          # time
     PS1=$PS1"\n$symbol$RS "                            # git-symbol token
