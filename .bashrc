@@ -45,7 +45,9 @@ alias lsf='ls $LS_OPTIONS -lhF|grep -v /' #          Files...
 
 function za() {
 	\cd $*;
-	ls -al $LS_OPTIONS;
+        if [[ $? -eq 0 ]]; then
+	    ls -al $LS_OPTIONS;
+        fi
 }
 
 alias cd='za'
