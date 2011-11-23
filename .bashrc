@@ -91,6 +91,8 @@ alias gg='git grep'
 alias gcm='git checkout master'
 alias gc-="git checkout \$(git reflog | grep 'checkout: moving from' | head -n 1 | awk {'print \$6'})" # Checkout last-checked-out branch.
 
+alias be="bundle exec"
+alias bes="bundle exec s -p"
 function gdd() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
