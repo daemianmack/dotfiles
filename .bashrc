@@ -254,6 +254,10 @@ function prompt_func() {
  
 PROMPT_COMMAND=prompt_func 
 
+if [ -f `brew --prefix`/etc/autojump ]; then
+    echo "Setting autojump"
+  . `brew --prefix`/etc/autojump
+fi
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
 export ORACLE_HOME=/opt/oracle
 export TNS_ADMIN=$ORACLE_HOME
