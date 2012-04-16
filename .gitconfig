@@ -30,3 +30,5 @@
   # show a list of files with bug fixes in them, sorted by popularity of occurance 
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
+[core]
+	excludesfile = /Users/dmack/.gitignore
