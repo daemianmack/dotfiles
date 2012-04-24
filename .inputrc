@@ -30,8 +30,8 @@ set completion-prefix-display-length 2
 # (As a bonus, in this particular example where there happened to be only four files in the directory, I could've actually just done this instead:)
 # $ ls <Press ctrl-j three times>
 # $ ls cfg-mplayer-def.h
-Control-j: menu-complete
-Control-k: menu-complete-backward
+Control-o: menu-complete
+Control-p: menu-complete-backward
 
 # With this enabled, underscores and hyphens are treated equally when completing, which is a plus to me because I find hyphens a lot easier to type.
 set completion-map-case on
