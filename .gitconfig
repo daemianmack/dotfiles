@@ -1,7 +1,7 @@
 
 [user]
   name = Daemian Mack
-  email = dmack@federatedmedia.net
+  email = dmack@rpath.com
 [color]
   branch = auto
   diff = auto
@@ -31,4 +31,4 @@
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
 [core]
-	excludesfile = /Users/dmack/.gitignore
+	excludesfile = /Users/dmack/.gitignore_global
