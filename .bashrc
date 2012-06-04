@@ -92,6 +92,15 @@ alias gg='git grep'
 alias gcm='git checkout master'
 alias gc-="git checkout \$(git reflog | grep 'checkout: moving from' | head -n 1 | awk {'print \$6'})" # Checkout last-checked-out branch.
 
+# mercury :|
+alias hd='hg diff'
+alias hs='hg status'
+alias hu='hg update'
+alias hc='hg commit -m'
+alias hl='hg log | less'
+alias hh='hg heads'
+alias hi='hg incoming'
+
 alias startr='vmrun -T fusion start ~/rails.vmwarevm/Red\ Hat\ Enterprise\ Linux\ 5\ 64-bit.vmx nogui'
 alias sshr='ssh devuser@rails'
 alias be="bundle exec"
