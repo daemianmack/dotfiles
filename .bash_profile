@@ -59,3 +59,4 @@ if [ -f /opt/local/etc/bash_completion ]; then
 fi
 
 
+eval "$(rbenv init -)"
