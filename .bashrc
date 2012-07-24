@@ -73,7 +73,6 @@ alias j='jobs -l'
 alias mv='mv -i'
 alias p='ps auxw'
 alias rm='rm -i'
-alias s='kill -STOP %?procmail.log; fh; SUP_INDEX=xapian ruby -I /home/vasudeva/sup/lib /home/vasudeva/sup/bin/sup; fh; bg %?procmail.log;'
 alias tail='tail -n 100'
 alias vi='vim -X'
 
@@ -101,8 +100,6 @@ alias hl='hg log | less'
 alias hh='hg heads'
 alias hi='hg incoming'
 
-alias startr='vmrun -T fusion start ~/rails.vmwarevm/Red\ Hat\ Enterprise\ Linux\ 5\ 64-bit.vmx nogui'
-alias sshr='ssh devuser@rails'
 alias be="bundle exec"
 alias bes="bundle exec s -p"
 
