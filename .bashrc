@@ -266,17 +266,11 @@ if [ -f `brew --prefix`/etc/autojump ]; then
     echo "Setting autojump"
   . `brew --prefix`/etc/autojump
 fi
+
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
-export ORACLE_HOME=/opt/oracle
-export TNS_ADMIN=$ORACLE_HOME
-# Darwin
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$ORACLE_HOME
-# Linux
-export LD_LIBRARY_PATH=$ORACLE_HOME
 
 # virtualenv stuff...
 export WORKON_HOME=$HOME/.virtualenvs
-
 if [ -z /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
