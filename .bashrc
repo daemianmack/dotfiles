@@ -271,6 +271,6 @@ export PYTHONPATH=$PYTHONPATH:$HOME/src/git
 
 # virtualenv stuff...
 export WORKON_HOME=$HOME/.virtualenvs
-if [ -z /usr/local/bin/virtualenvwrapper.sh ]; then
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
