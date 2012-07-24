@@ -90,7 +90,7 @@ alias gs='git status'
 alias gba='git branch -a'
 alias gg='git grep'
 alias gcm='git checkout master'
-alias gc-="git checkout \$(git reflog | grep 'checkout: moving from' | head -n 1 | awk {'print \$6'})" # Checkout last-checked-out branch.
+alias gc-="git checkout -"  # Checkout last-checked-out branch.
 
 # mercury :|
 alias hd='hg diff'
