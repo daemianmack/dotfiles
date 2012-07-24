@@ -278,4 +278,7 @@ export LD_LIBRARY_PATH=$ORACLE_HOME
 
 # virtualenv stuff...
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+
+if [ -z /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
