@@ -105,6 +105,7 @@ alias startr='vmrun -T fusion start ~/rails.vmwarevm/Red\ Hat\ Enterprise\ Linux
 alias sshr='ssh devuser@rails'
 alias be="bundle exec"
 alias bes="bundle exec s -p"
+
 function gdd() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
@@ -183,7 +184,7 @@ HC="\[\033[1m\]"         # hicolor
 UL="\[\033[4m\]"         # underline
 INV="\[\033[7m\]"        # inverse background and foreground
 FBLACK="\[\033[30m\]"    # foreground black
-FRED="\[\033[0;31m\]"      # foreground red
+FRED="\[\033[0;31m\]"    # foreground red
 FGREEN="\[\033[32m\]"    # foreground green
 FYELLOW="\[\033[33m\]"   # foreground yellow
 FBLUE="\[\033[34m\]"     # foreground blue
@@ -247,8 +248,8 @@ function parse_git_symbol {
  
 function prompt_func() {
     # BASH prompt: 
-    # (dmack@ming)       (~/dotfiles)      (git-branch if git repo)         (12:57:38)
-    # git-symbol if git repo [cursor]
+    # (dmack@ming:~/dotfiles)      [(git-branch if git repo)]         (12:57:38)
+    # [git-symbol if git repo] [cursor]
 
     git rev-parse --git-dir &> /dev/null
     git_status="$(git status 2> /dev/null)"
@@ -256,10 +257,10 @@ function prompt_func() {
     branch="${branch}"
     symbol=$(parse_git_symbol "$git_status")
 
-    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       "  # <newline> <newline> (username@hostname) <faketab>
-    PS1=$PS1"$HC$FBLUE$branch$RS"                     # git-branch token if in a git repo
-    PS1=$PS1"$FGREEN(\t)$RS"                          # time
-    PS1=$PS1"\n$symbol$RS "                            # git-symbol token
+    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
+    PS1=$PS1"$HC$FBLUE$branch$RS"                       # git-branch token if in a git repo
+    PS1=$PS1"$FGREEN(\t)$RS"                            # time
+    PS1=$PS1"\n$symbol$RS "                             # git-symbol token
 }
  
 PROMPT_COMMAND=prompt_func 
