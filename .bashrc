@@ -262,9 +262,11 @@ function prompt_func() {
  
 PROMPT_COMMAND=prompt_func 
 
-if [ -f `brew --prefix`/etc/autojump ]; then
-    echo "Setting autojump"
-  . `brew --prefix`/etc/autojump
+if [ -f /usr/local/bin/brew ]; then
+  if [ -f `brew --prefix`/etc/autojump ]; then
+      echo "Setting autojump"
+    . `brew --prefix`/etc/autojump
+  fi
 fi
 
 export PYTHONPATH=$PYTHONPATH:$HOME/src/git
