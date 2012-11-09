@@ -58,7 +58,6 @@ alias -- -='cd -'
 
 alias d='ls -Lla|grep ^d'
 alias e='emacsclient'              # Standalone client.
-alias ec='emacsclient -n -a emacs' # Open buffer in central instance.
 alias f='find . | grep -v ".git"'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name "$@"'
@@ -102,6 +101,10 @@ alias hi='hg incoming'
 
 alias be="bundle exec"
 alias bes="bundle exec s -p"
+
+function ec() {
+    /usr/bin/env emacsclient -c -a "" $@
+}
 
 function gdd() {
     # Diff a SHA against its parent.
