@@ -30,7 +30,7 @@ if [ -d /opt/local/bin ] ; then
     PATH="${PATH}:/opt/local/bin"
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:~/bin:$PATH"
 
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
