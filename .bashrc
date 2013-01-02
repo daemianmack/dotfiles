@@ -94,6 +94,9 @@ alias gc-="git checkout -"  # Checkout last-checked-out branch.
 alias be="bundle exec"
 alias bes="bundle exec s -p"
 
+alias rmount="truecrypt --mount --protect-hidden=no --keyfiles= ~/relevance.tc ~/relevance"
+alias rumount="truecrypt --dismount ~/relevance.tc"
+
 function ec() {
     /usr/bin/env emacsclient -c -a "" $@
 }
