@@ -120,21 +120,6 @@ function gps {
 }
 
 
-function tree()
-{
-    echo -e "\033[1;33m"
-
-    (cd ${1-.} ; pwd)
-    find ${1-.} -print | sort -f | sed     \
-        \
-        -e "s,^${1-.},,"                   \
-        -e "/^$/d"                         \
-        -e "s,[^/]*/\([^/]*\)$,\ |-->\1,"  \
-        -e "s,[^/]*/, |   ,g"
-
-    echo -e "\033[0m"
-}
-
 # frob [NEW_PRIORITY] [PROCESS_NAME]
 function frob {
     renice $1 `pidof $2`;
