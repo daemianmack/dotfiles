@@ -217,7 +217,7 @@ function parse_git_branch {
     branch_pattern="^# On branch ([^${IFS}]*)"
     if [[ "$git_status" =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
-        echo "(${branch})        "
+        echo "${branch}"
     fi
 }
 
@@ -245,25 +245,43 @@ function parse_git_symbol {
         echo "${remote}${state}"
     fi
 }
- 
-function prompt_func() {
-    # BASH prompt: 
-    # (dmack@ming:~/dotfiles)      [(git-branch if git repo)]         (12:57:38)
-    # [git-symbol if git repo] [cursor]
 
-    git rev-parse --git-dir &> /dev/null
-    git_status="$(git status 2> /dev/null)"
-    branch=$(parse_git_branch "$git_status")
-    branch="${branch}"
-    symbol=$(parse_git_symbol "$git_status")
+function fancy_prompt() {
+    function prompt_func() {
+        # BASH prompt:
+        # (dmack@ming:~/dotfiles)      [(git-branch) if git repo]         (12:57:38)
+        # [git-symbol if git repo] [cursor]
 
-    PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
-    PS1=$PS1"$HC$FBLUE$branch$RS"                       # git-branch token if in a git repo
-    PS1=$PS1"$FGREEN(\t)$RS"                            # time
-    PS1=$PS1"\n$symbol$RS "                             # git-symbol token
+        git rev-parse --git-dir &> /dev/null
+        git_status="$(git status 2> /dev/null)"
+        branch='($(parse_git_branch "$git_status"))       '
+        branch="${branch}"
+        symbol=$(parse_git_symbol "$git_status")
+
+        PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
+        PS1=$PS1"$HC$FBLUE$branch$RS"                       # git-branch token if in a git repo
+        PS1=$PS1"$FGREEN(\t)$RS"                            # time
+        PS1=$PS1"\n$symbol$RS "                             # git-symbol token if in a git repo
+    }
+    PROMPT_COMMAND=prompt_func
 }
- 
-PROMPT_COMMAND=prompt_func 
+
+function simple_prompt() {
+    function prompt_func() {
+        # BASH prompt:
+        # [git-branch if git repo]:~/dotfiles[git-symbol if git repo] [cursor]
+        git rev-parse --git-dir &> /dev/null
+        git_status="$(git status 2> /dev/null)"
+        branch=$(parse_git_branch "$git_status")
+        branch="${branch}"
+        symbol=$(parse_git_symbol "$git_status")
+        PS1="\n\n\[\e[1;34;40m\]$branch\[\e[0m\]:\[\e[32;40m\]\w>\[\e[0m\]$symbol$RS "
+    }
+
+    PROMPT_COMMAND=prompt_func
+}
+
+fancy_prompt
 
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
