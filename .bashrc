@@ -10,7 +10,6 @@ shopt -s histappend # Don't overwrite the older history file on exit -- append t
 shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
 export EDITOR='emacsclient -n -a emacs'
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
-export CDPATH=".:~:~/src/git" # I cd into these dirs a lot.
 
 # From screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
 # This should enable arrow keys and end keys and such inside vim inside screen.
