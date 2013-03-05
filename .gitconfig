@@ -10,7 +10,7 @@
   local = yellow
   remote = green
 [color "diff"]
-  meta = white blue
+  meta = blue black bold
   frag = magenta bold
   old = red bold
   new = green bold
@@ -24,10 +24,11 @@
   conflictstyle = diff3
 [alias]
   brage = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s \"$C\" -- ; done'"
-  # show a list of every branch and show there latests commit, sorted by last commit
+  # show a list of every branch and their latest commit, sorted by last commit
   brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
-  # show a list of files with bug fixes in them, sorted by popularity of occurance 
+  # show a list of files with bug fixes in them, sorted by frequency
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
 [core]
-	excludesfile = /Users/dmack/.gitignore_global
+  excludesfile = /Users/dmack/.gitignore_global
+
