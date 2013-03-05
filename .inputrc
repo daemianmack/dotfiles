@@ -35,3 +35,5 @@ Control-p: menu-complete-backward
 
 # With this enabled, underscores and hyphens are treated equally when completing, which is a plus to me because I find hyphens a lot easier to type.
 set completion-map-case on
+
+set bell-style none
