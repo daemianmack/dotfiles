@@ -262,6 +262,9 @@ function simple_prompt() {
 
 fancy_prompt
 
+# Share history across sessions in real-time.
+# Flush history on each command issued and re-source history file.
+PROMPT_COMMAND="$PROMPT_COMMAND; history -a; history -n"
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
       echo "Setting autojump"
