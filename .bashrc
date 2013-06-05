@@ -56,7 +56,7 @@ alias po='popd'
 alias -- -='cd -'
 
 alias d='ls -Lla|grep ^d'
-alias e='emacsclient'              # Standalone client.
+alias e='emacsclient -c'              # Standalone client.
 alias f='find . | grep -v ".git"'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name "$@"'
