@@ -8,24 +8,24 @@
 [color "branch"]
   current = yellow reverse
   local = yellow
-  remote = green
+  remote = blue
 [color "diff"]
   meta = blue black bold
   frag = magenta bold
-  old = red bold
-  new = green bold
+  old = red
+  new = green
 [color "status"]
   added = yellow
-  changed = green
+  changed = blue
   untracked = cyan
 [push]
-  default = matching
+  default = tracking
 [merge]
   conflictstyle = diff3
 [alias]
   brage = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s \"$C\" -- ; done'"
   # show a list of every branch and their latest commit, sorted by last commit
-  brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
+  brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cblue%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
   # show a list of files with bug fixes in them, sorted by frequency
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
