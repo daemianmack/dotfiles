@@ -73,6 +73,7 @@ alias p='ps auxw'
 alias rm='rm -i'
 alias tail='tail -n 100'
 alias vi='vim -X'
+alias r='lein repl'
 
 # ipython's edit function needs to wait for emacs to return the buffer.
 alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
