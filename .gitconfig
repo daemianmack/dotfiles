@@ -2,7 +2,7 @@
   name = Daemian Mack
   email = daemianmack@gmail.com
 [color]
-  branch = auto
+  branch = black
   diff = auto
   status = auto
 [color "branch"]
@@ -15,14 +15,16 @@
   old = red
   new = green
 [color "status"]
-  added = yellow
-  changed = blue
-  untracked = cyan
+  added = green bold
+  changed = magenta bold
+  untracked = white bold
+  branch = blue bold
 [push]
   default = tracking
 [merge]
   conflictstyle = diff3
 [alias]
+  l = log --pretty=format:'%Cgreen%h%Creset %Cred%cr%Creset %cn %Cgreen%s%Creset'
   brage = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s \"$C\" -- ; done'"
   # show a list of every branch and their latest commit, sorted by last commit
   brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cblue%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
