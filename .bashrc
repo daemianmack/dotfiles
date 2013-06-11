@@ -56,7 +56,7 @@ alias po='popd'
 alias -- -='cd -'
 
 alias d='ls -Lla|grep ^d'
-alias e='emacsclient'              # Standalone client.
+alias e='emacsclient -c'              # Standalone client.
 alias f='find . | grep -v ".git"'
 alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name "$@"'
@@ -73,6 +73,7 @@ alias p='ps auxw'
 alias rm='rm -i'
 alias tail='tail -n 100'
 alias vi='vim -X'
+alias r='lein repl'
 
 # ipython's edit function needs to wait for emacs to return the buffer.
 alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
