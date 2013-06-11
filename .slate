@@ -39,22 +39,23 @@ alias 0-righthalf   ${righthalf} ${mon-macbook}
 alias 0-rightmost   ${righthalf} ${mon-macbook}
 alias 1-full        throw ${mon-dell} resize
 alias 1-lefthalf    ${lefthalf} ${mon-apple}
-alias 1-rightmost   ${rightmost} ${mon-apple}
+alias 1-righthalf   ${righthalf} ${mon-apple}
 alias 2-full        move screenOriginX;screenOriginY screenSizeX;screenSizeY         ${mon-samsung}
 alias 2-lefthalf    ${lefthalf} ${mon-samsung}
+alias 2-righthalf   ${righthalf} ${mon-samsung}
 
 
 # 3 Monitor layout
-layout 3monitors 'Skype'           ${0-lefthalf}
-layout 3monitors 'Flint'           ${0-rightmost}
-layout 3monitors 'HipChat'         ${0-righthalf}
+layout 3monitors 'Skype'           ${2-lefthalf}
+layout 3monitors 'Flint'           ${2-righthalf}
+layout 3monitors 'HipChat'         ${2-righthalf}
 layout 3monitors 'iTerm'           ${1-full}
-layout 3monitors ${browser}        ${2-full}
-layout 3monitors ${editor}         ${2-lefthalf}
+layout 3monitors ${browser}        ${0-full}
+layout 3monitors ${editor}         ${0-lefthalf}
 
 # 2 Monitor layout
 layout 2monitors 'Skype'           ${1-lefthalf}
-layout 2monitors 'Flint'           ${1-rightmost}
+layout 2monitors 'Flint'           ${1-righthalf}
 layout 2monitors 'HipChat'         ${1-lefthalf}
 layout 2monitors 'iTerm'           ${0-full}
 layout 2monitors ${browser}        ${0-full}
@@ -62,7 +63,7 @@ layout 2monitors ${editor}         ${0-lefthalf}
 
 # 1 Monitor layout
 layout 1monitor 'Skype'           ${0-lefthalf}
-layout 1monitor 'Flint'           ${0-rightmost}
+layout 1monitor 'Flint'           ${0-righthalf}
 layout 1monitor 'HipChat'         ${0-lefthalf}
 layout 1monitor 'iTerm'           ${0-full}
 layout 1monitor ${browser}        ${0-full}
@@ -125,3 +126,7 @@ bind z:${hyper} focus 'iTerm'
 bind r:${hyper} focus 'Rdio'
 bind 1:${hyper} focus 'Google Chrome'
 bind 2:${hyper} focus 'Firefox'
+bind a:${hyper} focus 'resonance'
+
+# Other bindings
+bind l:${hyper} relaunch

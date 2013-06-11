@@ -37,3 +37,6 @@ Control-p: menu-complete-backward
 set completion-map-case on
 
 set bell-style none
+
+# Macro to insert cursor in "first arg position" of previous command.
+"\M-o": "\C-p\C-a\M-f "

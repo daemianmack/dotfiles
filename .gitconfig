@@ -31,6 +31,7 @@
   # show a list of files with bug fixes in them, sorted by frequency
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
+	co = checkout
 [core]
   excludesfile = /Users/dmack/.gitignore_global
 
