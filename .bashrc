@@ -221,7 +221,6 @@ function parse_git_symbol {
         remote="${HC}${BMAGENTA}${FYELLOW} ↕ ${RS}"
     fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
-        branch=${BASH_REMATCH[1]}
         echo "${remote}${state}"
     fi
 }
