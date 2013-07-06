@@ -207,9 +207,8 @@ function parse_git_symbol {
     remote_pattern="# Your branch is (.*)"
     diverge_pattern="# Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
-        state="${FRED}⚡" # Red text should be annoying.
+        state="⚡"
     fi
-    # add an else if or two here if you want to get more specific
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
         if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
             remote="${FYELLOW}↑"
@@ -241,7 +240,7 @@ function fancy_prompt() {
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
         PS1=$PS1"$HC$FBLUE$branch$RS"                       # git-branch token if in a git repo
         PS1=$PS1"$FGREEN(\t)$RS"                            # time
-        PS1=$PS1"\n$symbol$RS "                             # git-symbol token if in a git repo
+        PS1=$PS1"\n$symbol "                                # git-symbol token if in a git repo
     }
     PROMPT_COMMAND=prompt_func
 }
