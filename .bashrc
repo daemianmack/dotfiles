@@ -203,6 +203,7 @@ function parse_git_branch {
 
 function parse_git_symbol {
     git_status="$1"
+    ahead_pattern="(.*)ahead(.*)"
     branch_pattern="^# On branch ([^${IFS}]*)"
     remote_pattern="# Your branch is (.*)"
     diverge_pattern="# Your branch and (.*) have diverged"
@@ -210,8 +211,8 @@ function parse_git_symbol {
         state="⚡"
     fi
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
-        if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
             remote="${FYELLOW}↑"
+        if [[ ${BASH_REMATCH[1]} =~ ${ahead_pattern} ]]; then
         else
             remote="${FYELLOW}↓"
         fi
