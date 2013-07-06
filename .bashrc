@@ -211,14 +211,14 @@ function parse_git_symbol {
         state="⚡"
     fi
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
-            remote="${FYELLOW}↑"
         if [[ ${BASH_REMATCH[1]} =~ ${ahead_pattern} ]]; then
+            remote="${HC}${BRED}${FWHITE} ↑ ${RS}"
         else
-            remote="${FYELLOW}↓"
+            remote="${HC}${BBLUE}${FWHITE} ↓ ${RS}"
         fi
     fi
     if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-        remote="${FYELLOW}↕"
+        remote="${HC}${BMAGENTA}${FYELLOW} ↕ ${RS}"
     fi
     if [[ ${git_status} =~ ${branch_pattern} ]]; then
         branch=${BASH_REMATCH[1]}
