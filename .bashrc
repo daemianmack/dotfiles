@@ -203,7 +203,7 @@ function parse_git_branch {
 
 function parse_git_symbol {
     git_status="$1"
-    ahead_pattern="(.*)ahead(.*)"
+    ahead_pattern="ahead(.*)"
     branch_pattern="^# On branch ([^${IFS}]*)"
     remote_pattern="# Your branch is (.*)"
     diverge_pattern="# Your branch and (.*) have diverged"
