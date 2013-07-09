@@ -62,9 +62,6 @@ alias mega='du -ah|grep '[0-9]M' '
 alias ff='find . -name "$@"'
 alias g='grep --color=auto --exclude=*gif --exclude=*svn*'
 
-alias fm='fetchmail -d 1200'
-alias fh='fetchmail' # This will HUP an existing fetchmail daemon and grab new mail.
-
 alias cp='cp -i'
 alias h='history'
 alias j='jobs -l'
