@@ -208,7 +208,7 @@ function parse_git_symbol {
     remote_pattern="# Your branch is (.*)"
     diverge_pattern="# Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
-        state="⚡ "
+        state="${HC}${BRED}${FWHITE} ‼ ${RS}"
     fi
     if [[ ${git_status} =~ ${remote_pattern} ]]; then
         if [[ ${BASH_REMATCH[1]} =~ ${ahead_pattern} ]]; then
