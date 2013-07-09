@@ -233,8 +233,10 @@ function fancy_prompt() {
 
         git rev-parse --git-dir &> /dev/null
         git_status="$(git status 2> /dev/null)"
-        branch='($(parse_git_branch "$git_status"))       '
-        branch="${branch}"
+        branch=$(parse_git_branch "$git_status")
+        if [[ -n "$branch" ]]; then
+          branch="(${branch})       "
+        fi
         symbol=$(parse_git_symbol "$git_status")
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
