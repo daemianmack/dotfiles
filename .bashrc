@@ -43,9 +43,11 @@ alias lsd='ls $LS_OPTIONS -lhF|grep /'	  # Just:    Dirs...
 alias lsf='ls $LS_OPTIONS -lhF|grep -v /' #          Files...
 
 function za() {
-	\cd $*;
-        if [[ $? -eq 0 ]]; then
-	    ls -al $LS_OPTIONS;
+	\cd $* > /dev/null;
+        if [[ $? -eq 0 ]]
+        then
+            echo
+	    ll
         fi
 }
 
@@ -181,7 +183,7 @@ BWHITE="\[\033[47m\]"    # background white
 
 # Make less more friendly for non-text input files, see lesspipe(1).
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-
+ 
 
 # MySQL prompt:
 # mysql:(dmack@localhost)  (tracking_db)
@@ -237,7 +239,7 @@ function fancy_prompt() {
         symbol=$(parse_git_symbol "$git_status")
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
-        PS1=$PS1"$HC$FBLUE$branch$RS"                       # git-branch token if in a git repo
+        PS1=$PS1"$HC$FBLUE$branch$RS"              # git-branch token if in a git repo
         PS1=$PS1"$FGREEN(\t)$RS"                            # time
         PS1=$PS1"\n$symbol "                                # git-symbol token if in a git repo
     }
@@ -292,6 +294,5 @@ function do_rvm () {
   source ~/.rvm/scripts/rvm
   PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 }
-
 
 do_rvm
