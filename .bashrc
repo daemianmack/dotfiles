@@ -266,6 +266,7 @@ fancy_prompt
 # Flush history to file on each command issued, so resulting history
 # file contains all commands from all sessions.
 PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
+
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
       echo "Setting autojump"
