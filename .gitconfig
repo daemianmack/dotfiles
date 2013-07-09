@@ -2,7 +2,6 @@
   name = Daemian Mack
   email = daemianmack@gmail.com
 [color]
-  branch = black
   diff = auto
   status = auto
 [color "branch"]
@@ -11,7 +10,7 @@
   remote = blue
 [color "diff"]
   meta = blue black bold
-  frag = magenta bold
+  frag = magenta black bold
   old = red
   new = green
 [color "status"]
@@ -28,7 +27,7 @@
   brage = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s \"$C\" -- ; done'"
   # show a list of every branch and their latest commit, sorted by last commit
   brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cblue%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
-  # show a list of files with bug fixes in them, sorted by frequency
+  # show  a list of files with bug fixes in them, sorted by frequency
   # aka, list the buggy files
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
 	co = checkout
