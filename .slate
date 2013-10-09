@@ -126,6 +126,7 @@ bind z:${hyper} focus 'iTerm'
 bind r:${hyper} focus 'Rdio'
 bind 1:${hyper} focus 'Google Chrome'
 bind 2:${hyper} focus 'Firefox'
+bind 3:${hyper} focus 'Safari'
 bind a:${hyper} focus 'resonance'
 
 # Other bindings
