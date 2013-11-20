@@ -103,7 +103,7 @@ function ec() {
 function gdd() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
-    git diff ${sha}^ ${sha}
+    git diff --word-diff=color ${sha}^ ${sha}
 }
 
 function gtb() {
