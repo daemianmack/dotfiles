@@ -109,7 +109,7 @@ function gsp() {
 function gdd() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
-    git diff --word-diff=color ${sha}^ ${sha}
+    git diff ${sha}^ ${sha}
 }
 
 function gtb() {
