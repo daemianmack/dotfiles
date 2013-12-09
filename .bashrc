@@ -100,6 +100,12 @@ function ec() {
     /usr/bin/env emacsclient -c -a "" $@
 }
 
+function gsp() {
+    # Show a patch.
+    sha=${1:-HEAD} # Default if not passed.
+    git show --patch ${sha}
+}
+
 function gdd() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
