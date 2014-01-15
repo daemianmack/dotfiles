@@ -195,7 +195,14 @@ BWHITE="\[\033[47m\]"    # background white
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 
+function timer_start() {
+  timer=${timer:-$SECONDS}
+}
 
+function timer_stop() {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
 
 function parse_git_branch {
     git_status="$1"
@@ -236,6 +243,8 @@ function fancy_prompt() {
         # (dmack@ming:~/dotfiles)      [(git-branch) if git repo]         (12:57:38)
         # [git-symbol if git repo] [cursor]
 
+        timer_stop
+
         git rev-parse --git-dir &> /dev/null
         git_status="$(git status 2> /dev/null)"
         branch=$(parse_git_branch "$git_status")
@@ -245,9 +254,20 @@ function fancy_prompt() {
         symbol=$(parse_git_symbol "$git_status")
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
-        PS1=$PS1"$HC$FBLUE$branch$RS"              # git-branch token if in a git repo
-        PS1=$PS1"$FGREEN(\t)$RS"                            # time
-        PS1=$PS1"\n$symbol "                                # git-symbol token if in a git repo
+        PS1=$PS1"$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
+        PS1=$PS1"$FGREEN(\t)$RS      "                     # time <faketab>
+        if [[ $timer_show -lt 4 ]];
+            then timer_color=$FBLACK;
+        else
+            if [[ $timer_show -lt 10 ]];
+                then timer_color=$FYELLOW;
+            else
+                timer_color=$FRED;
+            fi
+        fi
+        PS1=$PS1"$timer_color[Last: ${timer_show}s]$RS"       # timer
+        PS1=$PS1"\n$symbol "                               # git-symbol token if in a git repo
+
     }
     PROMPT_COMMAND=prompt_func
 }
@@ -269,9 +289,11 @@ function simple_prompt() {
 
 fancy_prompt
 
+trap timer_start DEBUG
+
 # Flush history to file on each command issued, so resulting history
 # file contains all commands from all sessions.
-PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
