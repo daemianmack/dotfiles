@@ -195,12 +195,17 @@ BWHITE="\[\033[47m\]"    # background white
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 
+function get_time_ns {
+ruby -e 'puts "%.3f" % Time.now'
+}
+
 function timer_start() {
-  timer=${timer:-$SECONDS}
+  timer=${timer:-$(get_time_ns)}
 }
 
 function timer_stop() {
-  timer_show=$(($SECONDS - $timer))
+  now=$(get_time_ns)
+  timer_show=$(echo "$now - $timer" | bc)
   unset timer
 }
 
@@ -240,7 +245,7 @@ function parse_git_symbol {
 function fancy_prompt() {
     function prompt_func() {
         # BASH prompt:
-        # (dmack@ming:~/dotfiles)      [(git-branch) if git repo]         (12:57:38)
+        # (dmack@ming:~/dotfiles)      [(git-branch) if git repo]         (12:57:38/[elapsed-time-of-previous-command])
         # [git-symbol if git repo] [cursor]
 
         timer_stop
@@ -255,17 +260,19 @@ function fancy_prompt() {
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
         PS1=$PS1"$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
-        PS1=$PS1"$FGREEN(\t)$RS      "                     # time <faketab>
-        if [[ $timer_show -lt 4 ]];
+
+
+        local timer_int=${timer_show/.*}
+        if [[ $timer_int -lt 4 ]];
             then timer_color=$FBLACK;
         else
-            if [[ $timer_show -lt 10 ]];
-                then timer_color=$FYELLOW;
+            if [[ $timer_int -lt 10 ]];
+                then timer_color=$HC$FYELLOW;
             else
-                timer_color=$FRED;
+                timer_color=$HC$FRED;
             fi
         fi
-        PS1=$PS1"$timer_color[Last: ${timer_show}s]$RS"       # timer
+        PS1=$PS1"$FGREEN(\t${FBLACK}/${timer_color}${timer_show}s$FGREEN)$RS      " # time <faketab>
         PS1=$PS1"\n$symbol "                               # git-symbol token if in a git repo
 
     }
