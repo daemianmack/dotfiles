@@ -223,19 +223,18 @@ function parse_git_branch {
 function parse_git_symbol {
     git_status="$1"
     maybe_hash="(# )?"
-    ahead_pattern="ahead(.*)"
     branch_pattern="^${maybe_hash}On branch ([^${IFS}]*)"
-    remote_pattern="${maybe_hash}Your branch is (.*)"
+    ahead_pattern="${maybe_hash}Your branch is ahead"
+    behind_pattern="${maybe_hash}Your branch is behind"
     diverge_pattern="${maybe_hash}Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
         state="${HC}${BRED}${FWHITE} ‼ ${RS}"
     fi
-    if [[ ${git_status} =~ ${remote_pattern} ]]; then
-        if [[ ${BASH_REMATCH[1]} =~ ${ahead_pattern} ]]; then
-            remote_state="${HC}${BRED}${FWHITE} ↑ ${RS}"
-        else
-            remote_state="${HC}${BBLUE}${FWHITE} ↓ ${RS}"
-        fi
+    if [[ ${git_status} =~ ${ahead_pattern} ]]; then
+        remote_state="${HC}${BRED}${FWHITE} ↑ ${RS}"
+    fi
+    if [[ ${git_status} =~ ${behind_pattern} ]]; then
+        remote_state="${HC}${BBLUE}${FWHITE} ↓ ${RS}"
     fi
     if [[ ${git_status} =~ ${diverge_pattern} ]]; then
         remote_state="${HC}${BMAGENTA}${FYELLOW} ↕ ${RS}"
