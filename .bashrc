@@ -211,19 +211,22 @@ function timer_stop() {
 
 function parse_git_branch {
     git_status="$1"
-    branch_pattern="^# On branch ([^${IFS}]*)"
+    # git 1.5.8 removes the leading # from `git status` output.
+    maybe_hash="(# )?"
+    branch_pattern="^${maybe_hash}On branch ([^${IFS}]*)"
     if [[ "$git_status" =~ ${branch_pattern} ]]; then
-        branch=${BASH_REMATCH[1]}
+        branch=${BASH_REMATCH[2]}
         echo "${branch}"
     fi
 }
 
 function parse_git_symbol {
     git_status="$1"
+    maybe_hash="(# )?"
     ahead_pattern="ahead(.*)"
-    branch_pattern="^# On branch ([^${IFS}]*)"
-    remote_pattern="# Your branch is (.*)"
-    diverge_pattern="# Your branch and (.*) have diverged"
+    branch_pattern="^${maybe_hash}On branch ([^${IFS}]*)"
+    remote_pattern="${maybe_hash}Your branch is (.*)"
+    diverge_pattern="${maybe_hash}Your branch and (.*) have diverged"
     if [[ ! ${git_status} =~ "working directory clean" ]]; then
         state="${HC}${BRED}${FWHITE} ‼ ${RS}"
     fi
