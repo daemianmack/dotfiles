@@ -86,6 +86,19 @@ bind pad8 push top bar-resize:screenSizeY/2
 bind pad9 ${rightmost}
 bind padEnter:shift,cmd grid padding:5 ${mon-macbook}:6,2 ${mon-dell}:8,3
 
+alias laptop shift,alt
+
+bind 0:${laptop} ${showHintsLeftHand}
+bind 1:${laptop} ${leftless}
+bind 2:${laptop} push bottom bar-resize:screenSizeY/2
+bind 3:${laptop} ${rightless}
+bind 4:${laptop} ${lefthalf}
+bind 5:${laptop} ${full}
+bind 6:${laptop} ${righthalf}
+bind 7:${laptop} ${leftmost}
+bind 8:${laptop} push top bar-resize:screenSizeY/2
+bind 9:${laptop} ${rightmost}
+
 bind pad+ throw next
 bind pad. focus behind
 bind pad* layout 3monitors
