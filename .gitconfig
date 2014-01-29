@@ -32,5 +32,5 @@
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
 	co = checkout
 [core]
-  excludesfile = '~/.gitignore'
+	excludesfile = ~/.gitignore
 
