@@ -145,6 +145,8 @@ bind 1:${hyper} focus 'Google Chrome'
 bind 2:${hyper} focus 'Firefox'
 bind 3:${hyper} focus 'Safari'
 bind a:${hyper} focus 'resonance'
+bind w:${hyper} focus 'VLC'
+
 
 # Other bindings
 bind l:${hyper} relaunch
