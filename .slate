@@ -150,3 +150,12 @@ bind w:${hyper} focus 'VLC'
 
 # Other bindings
 bind l:${hyper} relaunch
+
+# 
+alias quux ctrl,cmd
+bind a:${quux} focus 'Charles'
+bind d:${quux} focus 'iTunes'
+bind q:${quux} focus 'Mail'
+bind w:${quux} focus 'Messages'
+bind s:${quux} focus 'SQuirreLSQL'
+
