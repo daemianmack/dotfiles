@@ -90,7 +90,7 @@ bind pad8 push top bar-resize:screenSizeY/2
 bind pad9 ${rightmost}
 bind padEnter:shift,cmd grid padding:5 ${mon-macbook}:6,2 ${mon-dell}:8,3
 
-alias laptop shift,alt
+alias laptop ctrl,shift,alt
 
 bind 0:${laptop} ${showHintsLeftHand}
 bind 1:${laptop} ${leftless}
