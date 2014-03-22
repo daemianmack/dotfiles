@@ -8,7 +8,7 @@ export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 shopt -s histappend # Don't overwrite the older history file on exit -- append to it.
 shopt -s checkwinsize # Avoids crappy linewrapping overwrite.
-export EDITOR='emacsclient -n -a emacs'
+export EDITOR='emacsclient -nw -a emacs'
 export LESS=$'-i -W -n  -z-4 -g -M -X -F -R -P%t?f%f \\\n:stdin .?pb%pb\\%:?lbLine %lb:?bbByte %bb:-...'
 
 # From screen misc pages at http://www.math.fu-berlin.de/~guckes/screen/misc.php3
@@ -97,7 +97,7 @@ alias rmount="truecrypt --mount --protect-hidden=no --keyfiles= ~/relevance.tc ~
 alias rumount="truecrypt --dismount ~/relevance.tc"
 
 function ec() {
-    /usr/bin/env emacsclient -c -a "" $@
+    /usr/bin/env emacsclient -nw -a "" $@
 }
 
 function gsp() {
