@@ -31,7 +31,7 @@ alias rightmost     move screenOriginX+screenSizeX*0.4;screenOriginY  screenSize
 alias rightless     move screenOriginX+screenSizeX*0.6;screenOriginY  screenSizeX*0.4;screenSizeY
 alias leftmost      move screenOriginX;screenOriginY                  screenSizeX*0.6;screenSizeY
 alias leftless      move screenOriginX;screenOriginY                  screenSizeX*0.4;screenSizeY
-alias centerwide    move screenOriginX+screenSizeX*.2;screenOriginY   screenSizeX/2;screenSizeY
+alias centerwide    move screenOriginX+screenSizeX*.24;screenOriginY  screenSizeX/2;screenSizeY
 alias centerthin    move screenOriginX+screenSizeX*.3;screenOriginY   screenSizeX/4;screenSizeY
 
 # Concrete positions
