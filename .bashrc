@@ -290,7 +290,7 @@ function simple_prompt() {
         branch=$(parse_git_branch "$git_status")
         branch="${branch}"
         symbol=$(parse_git_symbol "$git_status")
-        PS1="\n\n\[\e[1;34;40m\]$branch\[\e[0m\]:\[\e[32;40m\]\w>\[\e[0m\]$symbol$RS "
+        PS1="\n\n\[\e[1;34;40m\]${branch:0:15}\[\e[0m\]:\[\e[32;40m\]\W>\[\e[0m\]$symbol$RS "
     }
 
     PROMPT_COMMAND=prompt_func
