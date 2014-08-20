@@ -73,6 +73,7 @@ alias rm='rm -i'
 alias tail='tail -n 100'
 alias vi='vim -X'
 alias r='lein repl'
+alias ara='announce_return_after'
 
 # ipython's edit function needs to wait for emacs to return the buffer.
 alias ip='export EDITOR="emacsclient -a emacs"; ipython; source ~/.bashrc'
@@ -244,6 +245,17 @@ function parse_git_symbol {
     fi
 }
 
+function announce_return_after() {
+  export ANNOUNCE_RETURN_AFTER=${1:-0};
+  echo "ANNOUNCE_RETURN_AFTER=$ANNOUNCE_RETURN_AFTER";
+}
+
+function announce_return() {
+  if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
+      say "DONE!"
+  fi
+}
+
 function fancy_prompt() {
     function prompt_func() {
         # BASH prompt:
@@ -277,6 +289,7 @@ function fancy_prompt() {
         PS1=$PS1"$FGREEN(\t${FBLACK}/${timer_color}${timer_show}s$FGREEN)$RS      " # time <faketab>
         PS1=$PS1"\n$symbol "                               # git-symbol token if in a git repo
 
+        announce_return $timer_int;
     }
     PROMPT_COMMAND=prompt_func
 }
