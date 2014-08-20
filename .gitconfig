@@ -9,8 +9,9 @@
   local = yellow
   remote = blue
 [color "diff"]
+  commit = blue black bold
   meta = blue black bold
-  frag = magenta black bold
+  frag = black black bold
   old = red
   new = green
 [color "status"]
@@ -23,7 +24,7 @@
 [merge]
   conflictstyle = diff3
 [alias]
-  l = log --pretty=format:'%Cgreen%h%Creset %Cred%cr%Creset %cn %Cgreen%s%Creset'
+  l = log --pretty=format:'%Cgreen%h%Creset  %Cred%cr%Creset %Cblue%cn%Creset %s'
   brage = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s \"$C\" -- ; done'"
   # show a list of every branch and their latest commit, sorted by last commit
   brlog = "!sh -c 'for C in $(git for-each-ref --sort=committerdate refs/heads --format=\"%(refname:short)\") ; do git show -s --pretty=format:\"%Cblue%ci %Cblue%cr%Creset $C\" \"$C\" -- ; git show -s $C ; echo; done'"
