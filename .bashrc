@@ -210,6 +210,22 @@ function timer_stop() {
   unset timer
 }
 
+function parse_time() {
+  elapsed=$1
+  local hours=$(echo "$elapsed/3600" | bc)
+  local sub_hours=$(echo "$elapsed%3600" | bc)
+  local minutes=$(echo "$sub_hours/60" | bc)
+  local seconds=$(echo "$sub_hours%60" | bc)
+  if [[ $hours -gt 0 ]]; then
+    local result="${hours}h "
+  fi
+  if [[ $minutes -gt 0 ]]; then
+    local result="${result}${minutes}m "
+  fi
+  local result="${result}${seconds}s"
+  echo $result
+}
+
 function parse_git_branch {
     git_status="$1"
     # git 1.5.8 removes the leading # from `git status` output.
@@ -286,7 +302,10 @@ function fancy_prompt() {
                 timer_color=$HC$FRED;
             fi
         fi
-        PS1=$PS1"$FGREEN(\t${FBLACK}/${timer_color}${timer_show}s$FGREEN)$RS      " # time <faketab>
+
+        timer_parsed=$(parse_time $timer_show)
+
+        PS1=$PS1"$FGREEN(\t${FBLACK}/${timer_color}${timer_parsed}$FGREEN)$RS      " # time <faketab>
         PS1=$PS1"\n$symbol "                               # git-symbol token if in a git repo
 
         announce_return $timer_int;
