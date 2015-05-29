@@ -150,5 +150,5 @@ bind w:${hyper} focus 'VLC'
 bind l:${hyper} relaunch
 
 alias quux ctrl,cmd
-bind s:${quux} focus 'SQuirreLSQL'
+bind s:${quux} focus 'Slack'
 
