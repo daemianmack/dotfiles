@@ -343,17 +343,11 @@ if [ -f /usr/local/bin/brew ]; then
   fi
 fi
 
-export PYTHONPATH=$PYTHONPATH:$HOME/src/git
-
 # virtualenv stuff...
 export WORKON_HOME=$HOME/.virtualenvs
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 
 export RUBY_HEAP_MIN_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=250000

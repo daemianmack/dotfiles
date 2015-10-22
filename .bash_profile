@@ -30,8 +30,6 @@ if [ -d /opt/local/bin ] ; then
     PATH="${PATH}:/opt/local/bin"
 fi
 
-export PATH="$HOME/.rbenv/bin:~/bin:$PATH"
-
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
@@ -57,9 +55,6 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
+PATH="/usr/local/bin:${PATH}"
 
 eval "$(rbenv init -)"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
