@@ -275,6 +275,17 @@ function announce_return() {
     fi
 }
 
+# If the named tmux session I want to attach to doesn't already
+# exist, create it, then attach.
+ta () {
+    if [ "$(tmux list-sessions | grep -E "^$1:")" ];
+    then echo "Found existing session. Attaching."
+         tmux attach-session -t $1;
+    else echo "Creating new session and attaching."
+         tmux new-session -s $1;
+    fi;
+}
+
 function fancy_prompt() {
     function prompt_func() {
         # BASH prompt:
