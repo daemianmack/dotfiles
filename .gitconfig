@@ -34,7 +34,8 @@
   co = checkout
   wat = "!sh -c 'for k in $(git branch -a|perl -pe s/^..//|perl -pe s/^.*\\ .*$//s);do echo $(git show --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset\" $k|head -n 1)\\\t$k;done|sort -r'"
 [core]
-	excludesfile = ~/.gitignore
-
+  excludesfile = ~/.gitignore
 [help]
-	autocorrect = 1
+  autocorrect = 1
+[diff]
+  mnemonicprefix = true
