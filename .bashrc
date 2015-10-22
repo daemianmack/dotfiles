@@ -267,9 +267,12 @@ function announce_return_after() {
 }
 
 function announce_return() {
-  if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
-      say "DONE!"
-  fi
+    if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
+        # Don't announce if user issued Ctrl-C.
+        if [[ $GLOBAL_RET_VAL -ne 130 ]]; then
+            afplay -r 6 /System/Library/Sounds/Morse.aiff
+            fi
+    fi
 }
 
 function fancy_prompt() {
@@ -334,7 +337,14 @@ trap timer_start DEBUG
 
 # Flush history to file on each command issued, so resulting history
 # file contains all commands from all sessions.
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+# First, preserve current $? for downstream fns so that intermediate
+# fns don't clobber it with their own return codes.
+flush_history () {
+    GLOBAL_RET_VAL=$?
+    history -a
+}
+
+PROMPT_COMMAND="flush_history; $PROMPT_COMMAND"
 
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
