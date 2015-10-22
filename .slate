@@ -143,10 +143,12 @@ bind 1:${hyper} focus 'Google Chrome'
 bind 2:${hyper} focus 'Firefox'
 bind 3:${hyper} focus 'Safari'
 bind w:${hyper} focus 'VLC'
+bind q:${hyper} focus 'Slack'
+
 
 # Other bindings
 bind l:${hyper} relaunch
 
 alias quux ctrl,cmd
-bind s:${quux} focus 'Slack'
+
 
