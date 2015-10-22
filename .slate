@@ -136,8 +136,7 @@ bind down:${hyper}     focus down
 # App bindings
 bind c:${hyper} focus ${browser}
 bind e:${hyper} focus ${editor}
-bind f:${hyper} focus 'Flint'
-bind h:${hyper} focus 'HipChat'
+bind f:${hyper} focus 'HipChat'
 bind s:${hyper} focus 'Skype'
 bind z:${hyper} focus 'iTerm'
 bind r:${hyper} focus 'Rdio'
