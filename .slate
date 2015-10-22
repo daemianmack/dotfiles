@@ -139,7 +139,6 @@ bind e:${hyper} focus ${editor}
 bind f:${hyper} focus 'HipChat'
 bind s:${hyper} focus 'Skype'
 bind z:${hyper} focus 'iTerm'
-bind r:${hyper} focus 'Rdio'
 bind 1:${hyper} focus 'Google Chrome'
 bind 2:${hyper} focus 'Firefox'
 bind 3:${hyper} focus 'Safari'
