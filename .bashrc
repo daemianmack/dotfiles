@@ -196,34 +196,44 @@ BWHITE="\[\033[47m\]"    # background white
 # mysql:(dmack@localhost)  (tracking_db)
 export MYSQL_PS1="\n\n\nmysql:(\u@\h)\t(\d)\n"
 
-function get_time_ns {
-ruby -e 'puts "%.3f" % Time.now'
+# Abstract over date facilities, preferring GNU date's millisecond precision.
+function get_time {
+    # If on Mac...
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # And GNU date is available (via e.g.`brew install coreutils`)...
+        if [[ $(type -P "gdate") ]]; then
+            # Then we have millisecond precision.
+            echo $(gdate +%s%3N)
+        else
+            # Otherwise, BSD date -- second precision. Paper over this with trailing zeros.
+            printf "%d000" $(date +%s)
+        fi
+    else
+        # If not on Mac, assume Linux and GNU date.
+        echo $(date +%s%3N)
+    fi
+
 }
 
 function timer_start() {
-  timer=${timer:-$(get_time_ns)}
+    _USER_COMMAND_STARTED_AT=${_USER_COMMAND_STARTED_AT:-$(get_time)}
 }
 
 function timer_stop() {
-  now=$(get_time_ns)
-  timer_show=$(echo "$now - $timer" | bc)
-  unset timer
+    local now=$(get_time)
+    _USER_COMMAND_ELAPSED_TIME=$(echo "$now - $_USER_COMMAND_STARTED_AT" | bc)
+    unset _USER_COMMAND_STARTED_AT
 }
 
 function parse_time() {
-  elapsed=$1
-  local hours=$(echo "$elapsed/3600" | bc)
-  local sub_hours=$(echo "$elapsed%3600" | bc)
-  local minutes=$(echo "$sub_hours/60" | bc)
-  local seconds=$(echo "$sub_hours%60" | bc)
-  if [[ $hours -gt 0 ]]; then
-    local result="${hours}h "
-  fi
-  if [[ $minutes -gt 0 ]]; then
-    local result="${result}${minutes}m "
-  fi
-  local result="${result}${seconds}s"
-  echo $result
+    local elapsed_ms=$1
+    local elapsed_s=$elapsed_ms/1000
+    local hours=$(echo "$elapsed_s/3600" | bc)
+    local sub_hours=$(echo "$elapsed_s%3600" | bc)
+    local minutes=$(echo "$sub_hours/60" | bc)
+    local seconds=$(echo "$sub_hours%60" | bc)
+    local millis=$(echo "$elapsed_ms%1000" | bc)
+    _USER_COMMAND_PARSED_TIME=($hours $minutes $seconds $millis)
 }
 
 function parse_git_branch {
@@ -269,8 +279,8 @@ function announce_return_after() {
 function announce_return() {
     if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
         # Don't announce if user issued Ctrl-C.
-        if [[ $GLOBAL_RET_VAL -ne 130 ]]; then
-            afplay -r 6 /System/Library/Sounds/Morse.aiff
+        if [[ $_USER_COMMAND_RET_VAL -ne 130 ]]; then
+            afplay -r 5 /System/Library/Sounds/Morse.aiff
             fi
     fi
 }
@@ -286,6 +296,36 @@ ta () {
     fi;
 }
 
+function user_command_timer_display_color() {
+    local elapsed_seconds=${_USER_COMMAND_PARSED_TIME[2]}
+    local color
+    if [[ $elapsed_seconds -lt 4 ]]; then
+        color=$FBLACK
+    else
+        if [[ $elapsed_seconds -lt 10 ]]; then
+            color=$HC$FYELLOW
+        else
+            color=$HC$FRED
+        fi
+    fi
+    echo $color
+}
+
+function user_command_timer_display_string() {
+    local string=""
+    if [[ ${_USER_COMMAND_PARSED_TIME[0]} -gt 0 ]]; then
+        string+="${_USER_COMMAND_PARSED_TIME[0]}h"
+    fi
+    if [[ ${_USER_COMMAND_PARSED_TIME[1]} -gt 0 ]]; then
+        string+="${_USER_COMMAND_PARSED_TIME[1]}m"
+    fi
+    if [[ ${_USER_COMMAND_PARSED_TIME[2]} -gt 0 ]]; then
+        string+="${_USER_COMMAND_PARSED_TIME[2]}"
+    fi
+    string+=$(printf ".%03ds" ${_USER_COMMAND_PARSED_TIME[3]})
+    echo $string
+}
+
 function fancy_prompt() {
     function prompt_func() {
         # BASH prompt:
@@ -293,6 +333,7 @@ function fancy_prompt() {
         # [git-symbol if git repo] [cursor]
 
         timer_stop
+        parse_time $_USER_COMMAND_ELAPSED_TIME
 
         git rev-parse --git-dir &> /dev/null
         git_status="$(git status 2> /dev/null)"
@@ -304,25 +345,11 @@ function fancy_prompt() {
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
         PS1=$PS1"$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
+        
+        PS1=$PS1"$FGREEN(\t${FBLACK}/$(user_command_timer_display_color)$(user_command_timer_display_string)$FGREEN)$RS      " # time <faketab>
+        PS1=$PS1"\n$symbol" # git-symbol token if in a git repo
 
-
-        local timer_int=${timer_show/.*}
-        if [[ $timer_int -lt 4 ]];
-            then timer_color=$FBLACK;
-        else
-            if [[ $timer_int -lt 10 ]];
-                then timer_color=$HC$FYELLOW;
-            else
-                timer_color=$HC$FRED;
-            fi
-        fi
-
-        timer_parsed=$(parse_time $timer_show)
-
-        PS1=$PS1"$FGREEN(\t${FBLACK}/${timer_color}${timer_parsed}$FGREEN)$RS      " # time <faketab>
-        PS1=$PS1"\n$symbol "                               # git-symbol token if in a git repo
-
-        announce_return $timer_int;
+        announce_return ${_USER_COMMAND_PARSED_TIME[2]}
     }
     PROMPT_COMMAND=prompt_func
 }
@@ -346,16 +373,17 @@ fancy_prompt
 
 trap timer_start DEBUG
 
-# Flush history to file on each command issued, so resulting history
-# file contains all commands from all sessions.
-# First, preserve current $? for downstream fns so that intermediate
-# fns don't clobber it with their own return codes.
-flush_history () {
-    GLOBAL_RET_VAL=$?
+pre_prompt () {
+    # First, preserve for downstream fns the return value of the
+    # command the user has issued so that intermediate prompt-driven
+    # fns don't clobber it with their own return codes.
+    _USER_COMMAND_RET_VAL=$?
+    # Flush history to file on each command issued, so resulting history
+    # file contains all commands from all sessions.
     history -a
 }
 
-PROMPT_COMMAND="flush_history; $PROMPT_COMMAND"
+PROMPT_COMMAND="pre_prompt; $PROMPT_COMMAND"
 
 if [ -f /usr/local/bin/brew ]; then
   if [ -f `brew --prefix`/etc/autojump ]; then
