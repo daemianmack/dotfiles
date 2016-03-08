@@ -279,7 +279,7 @@ function announce_return_after() {
 function announce_return() {
     if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
         # Don't announce if user issued Ctrl-C.
-        if [[ $_USER_COMMAND_RET_VAL -ne 130 ]]; then
+        if [[ $_USER_COMMAND_EXIT_CODE -ne 130 ]]; then
             afplay -r 5 /System/Library/Sounds/Morse.aiff
             fi
     fi
@@ -326,6 +326,12 @@ function user_command_timer_display_string() {
     echo $string
 }
 
+function user_command_ret_val_display_string() {
+    if [[ $_USER_COMMAND_EXIT_CODE -gt 0 ]]; then
+        echo "${FBLACK}/${BRED}${HC}${INV}$_USER_COMMAND_EXIT_CODE${RS}"
+    fi
+}
+
 function fancy_prompt() {
     function prompt_func() {
         # BASH prompt:
@@ -346,7 +352,7 @@ function fancy_prompt() {
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
         PS1=$PS1"$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
         
-        PS1=$PS1"$FGREEN(\t${FBLACK}/$(user_command_timer_display_color)$(user_command_timer_display_string)$FGREEN)$RS      " # time <faketab>
+        PS1=$PS1"$FGREEN(\t$(user_command_ret_val_display_string)${FBLACK}/$(user_command_timer_display_color)$(user_command_timer_display_string)$FGREEN)$RS      " # time <faketab>
         PS1=$PS1"\n$symbol" # git-symbol token if in a git repo
 
         announce_return ${_USER_COMMAND_PARSED_TIME[2]}
@@ -377,7 +383,7 @@ pre_prompt () {
     # First, preserve for downstream fns the return value of the
     # command the user has issued so that intermediate prompt-driven
     # fns don't clobber it with their own return codes.
-    _USER_COMMAND_RET_VAL=$?
+    _USER_COMMAND_EXIT_CODE=$?
     # Flush history to file on each command issued, so resulting history
     # file contains all commands from all sessions.
     history -a
