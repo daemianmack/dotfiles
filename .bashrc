@@ -350,10 +350,13 @@ function fancy_prompt() {
         symbol=$(parse_git_symbol "$git_status")
 
         PS1="\n\n$FGREEN($FWHITE\u@\h$FGREEN:\w)$RS       " # <newline> <newline> (username@hostname) <faketab>
-        PS1=$PS1"$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
+        PS1+="$HC$FBLUE$branch$RS"                      # git-branch token if in a git repo
         
-        PS1=$PS1"$FGREEN(\t$(user_command_ret_val_display_string)${FBLACK}/$(user_command_timer_display_color)$(user_command_timer_display_string)$FGREEN)$RS      " # time <faketab>
-        PS1=$PS1"\n$symbol" # git-symbol token if in a git repo
+        PS1+="$FGREEN(\t"
+        PS1+="$(user_command_ret_val_display_string)"
+        PS1+="${FBLACK}/$(user_command_timer_display_color)"
+        PS1+="$(user_command_timer_display_string)$FGREEN)$RS      " # time <faketab>
+        PS1+="\n$symbol" # git-symbol token if in a git repo
 
         announce_return ${_USER_COMMAND_PARSED_TIME[2]}
     }
