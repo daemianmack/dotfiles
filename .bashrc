@@ -107,10 +107,10 @@ function gsp() {
     git show --patch ${sha}
 }
 
-function gdd() {
+function gsh() {
     # Diff a SHA against its parent.
     sha=${1:-HEAD} # Default if not passed.
-    git diff ${sha}^ ${sha}
+    git show ${sha}
 }
 
 function gtb() {
