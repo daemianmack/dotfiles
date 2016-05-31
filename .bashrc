@@ -280,8 +280,13 @@ function announce_return() {
     if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
         # Don't announce if user issued Ctrl-C.
         if [[ $_USER_COMMAND_EXIT_CODE -ne 130 ]]; then
-            afplay -r 5 /System/Library/Sounds/Morse.aiff
+            # Make unpleasant sound if exit status warrants.
+            if [[ $_USER_COMMAND_EXIT_CODE -eq 1 ]]; then
+                afplay -r 5 /System/Library/Sounds/Basso.aiff
+            else
+                afplay -r 5 /System/Library/Sounds/Morse.aiff
             fi
+        fi
     fi
 }
 
