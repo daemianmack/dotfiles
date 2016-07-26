@@ -43,7 +43,7 @@ alias lsd='CLICOLOR_FORCE=true ls $LS_OPTIONS -lhF|grep /'	  # Just:    Dirs...
 alias lsf='CLICOLOR_FORCE=true ls $LS_OPTIONS -lhF|grep -v /' #          Files...
 
 function za() {
-	\cd $* > /dev/null;
+	\cd "$*" > /dev/null;
         if [[ $? -eq 0 ]]
         then
             echo
