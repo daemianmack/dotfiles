@@ -33,6 +33,7 @@ l = log --pretty=format:'%Cgreen%h%Creset  %<(32)%Cred%cD%Creset %Cblue%cn%Crese
   buggyfiles = !"git log --format=\"format:%n\" --name-only | grep . | sort | uniq -c | sort -n"
   co = checkout
   wat = "!sh -c 'for k in $(git branch -a|perl -pe s/^..//|perl -pe s/^.*\\ .*$//s);do echo $(git show --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset\" $k|head -n 1)\\\t$k;done|sort -r'"
+  deleteable = "branch -a --merged master"
 [core]
   excludesfile = ~/.gitignore
 [help]
