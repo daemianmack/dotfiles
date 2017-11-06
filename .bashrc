@@ -278,8 +278,9 @@ function announce_return_after() {
 
 function announce_return() {
     if [[ $1 -ge $ANNOUNCE_RETURN_AFTER && $ANNOUNCE_RETURN_AFTER -gt 0 ]]; then
-        # Don't announce if user issued Ctrl-C.
-        if [[ $_USER_COMMAND_EXIT_CODE -ne 130 ]]; then
+        # Don't announce if user issued Ctrl-C or Ctrl-Z.
+        # (Not sure how universal "146" is for SIGSTOP, which also can't be trapped.)
+        if [[ $_USER_COMMAND_EXIT_CODE -ne 130 && $_USER_COMMAND_EXIT_CODE -ne 146 ]]; then
             # Make unpleasant sound if exit status warrants.
             if [[ $_USER_COMMAND_EXIT_CODE -eq 1 ]]; then
                 afplay -r 5 /System/Library/Sounds/Basso.aiff & disown
