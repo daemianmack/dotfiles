@@ -254,7 +254,7 @@ function parse_git_symbol {
     ahead_pattern="${maybe_hash}Your branch is ahead"
     behind_pattern="${maybe_hash}Your branch is behind"
     diverge_pattern="${maybe_hash}Your branch and (.*) have diverged"
-    if [[ ! ${git_status} =~ "working directory clean" ]]; then
+    if [[ ! ${git_status} =~ "working tree clean" ]]; then
         state="${HC}${BRED}${FWHITE} ‼ ${RS}"
     fi
     if [[ ${git_status} =~ ${ahead_pattern} ]]; then
