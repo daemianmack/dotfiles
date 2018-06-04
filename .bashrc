@@ -88,8 +88,27 @@ alias gs='git status'
 alias gba='git branch -a'
 alias gg='git grep'
 alias gcm='git checkout master'
-alias gc-="git checkout -"  # Checkout last-checked-out branch.
+alias gc-="git checkout -"       # Checkout last-checked-out branch.
+# Create aliases to checkout last nth-checked-out branch.
+for i in `seq 2 10`;
+do
+    alias gc-"$i"="git checkout @{-$i}"  
+done;
 
+function gcl() {
+    # List last n-checked-out branches and alias command to check it out.
+    local gcl_output="n QQQ ref-name QQQ checkout QQQ alias\n\n-QQQ ---------QQQ ----------QQQ -----\n"
+    
+    for i in `seq 1 10`;
+    do
+        local curr=$(git rev-parse --abbrev-ref @{-$i} 2>/dev/null);
+        if [ "" != "$curr" ] && [ "@{-$i}" != "$curr" ];
+        then
+            gcl_output="$gcl_output\n$i QQQ $curr QQQ git checkout @{-$i} QQQ gc-$i\n";
+        fi;
+    done
+    echo -ne $gcl_output | column -t -s "QQQ"
+}
 
 alias be="bundle exec"
 alias bes="bundle exec s -p"
