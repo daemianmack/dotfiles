@@ -425,3 +425,79 @@ if [ -f /usr/local/bin/brew ]; then
     . `brew --prefix`/etc/autojump
   fi
 fi
+# brew install awscli
+# ==> Downloading https://homebrew.bintray.com/bottles/awscli-1.10.32.el_capitan.bottle.tar.gz
+# ######################################################################## 100.0%
+# ==> Pouring awscli-1.10.32.el_capitan.bottle.tar.gz
+# ==> Caveats
+# The "examples" directory has been installed to:
+#   /usr/local/share/awscli/examples
+
+# Add the following to ~/.bashrc to enable bash completion:
+#   complete -C aws_completer aws
+
+# Add the following to ~/.zshrc to enable zsh completion:
+#   source /usr/local/share/zsh/site-functions/_aws
+
+# Before using awscli, you need to tell it about your AWS credentials.
+# The easiest way to do this is to run:
+#   aws configure
+
+# More information:
+#   https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+
+# zsh completion has been installed to:
+#   /usr/local/share/zsh/site-functions
+# ==> Summary
+# 🍺  /usr/local/Cellar/awscli/1.10.32: 2,703 files, 19.7M
+
+complete -C aws_completer aws
+
+function li() {
+    if [ -z ${1+x} ]; then
+        lein install;
+    else
+        \cd $1
+        lein install
+        \cd -
+    fi
+}
+
+eval "$(direnv hook bash)"
+
+function last_docker_container(){
+    docker ps -l | head -n 2 | \tail -n 1 | awk {'print $1'}
+}
+
+alias ldc="last_docker_container"
+
+
+alias di="docker images"
+alias dp="docker ps"     # List running containers.
+alias dpa="docker ps -a" # List all containers.
+
+function rm_last_container(){
+    local last_c=$(last_docker_container)
+    docker stop "$last_c"
+    docker rm "$last_c"
+    echo "Container deleted."
+}
+
+alias rlc="rm_last_container"
+
+function log_last_container(){
+    local last_c=$(last_docker_container)
+    docker logs "$last_c"
+}
+
+alias llc="log_last_container"
+
+alias fk="fkill -v"
+
+function archive_log(){
+    local file=$1
+    local dir=$2
+    local now=$(date -u "+%Y-%m-%dT%H-%M-%S")
+    mv "$file" "$dir/$file-$now"
+}
+
