@@ -425,7 +425,12 @@ if [ -f /usr/local/bin/brew ]; then
     . `brew --prefix`/etc/autojump
   fi
 fi
+
+bind "set show-all-if-ambiguous on"
+
 ara 1
+
+
 # brew install awscli
 # ==> Downloading https://homebrew.bintray.com/bottles/awscli-1.10.32.el_capitan.bottle.tar.gz
 # ######################################################################## 100.0%
