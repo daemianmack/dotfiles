@@ -127,28 +127,28 @@ alias hyper shift,cmd
 #bind r:${hyper} ${leftmost}
 #bind g:${hyper} ${rightmost}
 
-# Focus Bindings
-bind right:${hyper}    focus right
-bind left:${hyper}     focus left
-bind up:${hyper}       focus up
-bind down:${hyper}     focus down
+# # Focus Bindings
+# bind right:${hyper}    focus right
+# bind left:${hyper}     focus left
+# bind up:${hyper}       focus up
+# bind down:${hyper}     focus down
 
 # App bindings
-bind c:${hyper} focus ${browser}
-bind e:${hyper} focus ${editor}
-bind f:${hyper} focus 'HipChat'
-bind s:${hyper} focus 'Skype'
-bind z:${hyper} focus 'iTerm'
-bind 1:${hyper} focus 'Google Chrome'
-bind 2:${hyper} focus 'Firefox'
-bind 3:${hyper} focus 'Safari'
-bind w:${hyper} focus 'VLC'
 bind q:${hyper} focus 'Slack'
+bind w:${hyper} focus 'VLC'
+bind e:${hyper} focus ${editor}
 
+bind a:${hyper} focus 'Audacity'
+bind s:${hyper} focus 'Skype'
+bind d:${hyper} focus 'DBeaver Enterprise'
+bind f:${hyper} focus 'HipChat'
+bind 2:${hyper} focus 'Vivaldi'
+bind h:${hyper} focus 'Screenhero'
+
+bind v:${hyper} focus 'Cisco WebEx Meeting Center'
+
+bind z:${hyper} focus 'iTerm2'
+bind c:${hyper} focus ${browser}
 
 # Other bindings
 bind l:${hyper} relaunch
-
-alias quux ctrl,cmd
-
-

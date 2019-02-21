@@ -180,7 +180,7 @@ slate.bind("g:z,alt", grid);
 slate.bind("h:z,alt", slate.operation("hint"));
 slate.bind("`:z,alt", fullscreenOp);
 slate.bind("a:z,alt", function (w) { throwInDirection(w, "left"  ); });
-slate.bind("d:z,alt", function (w) { throwInDirection(w, "right" ); });
+// slate.bind("d:z,alt", function (w) { throwInDirection(w, "right" ); });
 slate.bind("w:z,alt", function (w) { throwInDirection(w, "up"    ); });
 slate.bind("s:z,alt", function (w) { throwInDirection(w, "down"  ); });
 
