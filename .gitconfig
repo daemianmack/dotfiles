@@ -34,9 +34,16 @@ l = log --pretty=format:'%Cgreen%h%Creset  %<(32)%Cred%cD%Creset %Cblue%cn%Crese
   co = checkout
   wat = "!sh -c 'for k in $(git branch -a|perl -pe s/^..//|perl -pe s/^.*\\ .*$//s);do echo $(git show --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset\" $k|head -n 1)\\\t$k;done|sort -r'"
   deleteable = "branch -a --merged master"
+  stash-rename = "!_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m \"$2\" $rev; }; _"
 [core]
   excludesfile = ~/.gitignore
+  attributesfile = /Users/daemianmack/.gitattributes
 [help]
   autocorrect = 1
 [diff]
   mnemonicprefix = true
+[diff "clojure"]
+  # git log -L:comparison-sse-open:web/src/cljs/com/toyota_europe/dct/ui/events.cljs
+  xfuncname = (^\\(.*|\\s*\\(defn.*)
+[github]
+  user = daemianmack
