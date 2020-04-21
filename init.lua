@@ -84,6 +84,15 @@ function dead_key(key, program)
 end
 
 
+function launch_local_applescript(scriptname)
+   local pwd = io.popen("pwd"):read("*a")
+   local pwd = string.gsub(pwd, "(\n)", "")
+   local script_name = scriptname
+   local script_path = string.format("%s/%s", pwd, script_name)
+   hs.osascript.applescriptFromFile(script_path)
+end
+
+
 -- Here we specify the binary because otherwise Hammerspoon keys off
 -- the title of the window, which in GUI Emacs will be the buffer
 -- name, and thus always wrong, so HS will pop open multiple Emacses.
@@ -94,7 +103,9 @@ open_on_key("m", "Messages")
 open_on_key("f", "Firefox")
 open_on_key("2", "Firefox")
 open_on_key("r", "Keybase")
-focus_on_key("q", "slack", "slack")
+hs.hotkey.bind(my_key, "q", function() launch_local_applescript("slack.applescript") end)
+hs.hotkey.bind(my_key, "w", function() launch_local_applescript("slack.applescript") end)
+hs.hotkey.bind(my_key, "s", function() launch_local_applescript("skype.applescript") end)
 
 
 
