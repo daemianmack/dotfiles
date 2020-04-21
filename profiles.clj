@@ -102,9 +102,11 @@
 
         :plugins [
                   ;; elisp: clojure-mode 20180121.1011, cider-nrepl 0.16.0, clj-refactor 20171117.317
-                  [refactor-nrepl "2.4.0-SNAPSHOT"]
-                  [cider/cider-nrepl "0.16.0" :exclusions [org.clojure/tools.nrepl]]]
+                  ;; [refactor-nrepl "2.4.0-SNAPSHOT"]
+                  ;; [cider/cider-nrepl "0.16.0" :exclusions [org.clojure/tools.nrepl]]
 
-        :dependencies [
-                       ;; Specifying this allows EOG project to work with above `nrepl` plugins.
-                       [org.clojure/tools.nrepl "0.2.13" :exclusions [org.clojure/clojure]]]}}
+                  ;; elisp: clojure-mode-20181119.1200, cider-nrepl 0.19.0, clj-refactor-20181224.1310
+                  ;;[refactor-nrepl "2.4.0"]
+                  [cider/cider-nrepl "0.21.0"]]
+
+        :dependencies []}}
