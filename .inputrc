@@ -38,5 +38,34 @@ set completion-map-case on
 
 set bell-style none
 
+# Show completion options on first tab; begin cycling on second tab.
+set menu-complete-display-prefix on
+
+# Show all available completion options on second tab.
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# Avoid duplicating text when completing an option mid-word.
+set skip-completed-text on
+
+# Show symbols to denote file type of each completion option.
+set visible-stats on
+
+# Show completion options in color. Also highlight the search prefix.
+set colored-stats on
+set colored-completion-prefix on
+
+# Append directories with a slash.
+set mark-directories on
+
+# Append symlinks with an at.
+set mark-symlinked-directories on
+
 # Macro to insert cursor in "first arg position" of previous command.
 "\M-o": "\C-p\C-a\M-f "
+
+# Trying to make rlwrap stop crashing when I hit "ctrl+y" but this
+# makes "ctrl+y" stop working at the default BASH prompt.
+# "\C-y": rlwrap-hotkey-without-history
+# "\C-v": yank
+# "\C-r": reverse-search-history
