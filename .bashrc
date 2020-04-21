@@ -42,7 +42,7 @@ alias lsx='CLICOLOR_FORCE=true ls $LS_OPTIONS -alh|sort'	  #          chmod...
 alias lsd='CLICOLOR_FORCE=true ls $LS_OPTIONS -lhF|grep /'	  # Just:    Dirs...         
 alias lsf='CLICOLOR_FORCE=true ls $LS_OPTIONS -lhF|grep -v /' #          Files...
 
-function za() {
+function CD() {
 	\cd "$*" > /dev/null;
         if [[ $? -eq 0 ]]
         then
@@ -51,8 +51,8 @@ function za() {
         fi
 }
 
-alias cd='za'
-alias ..='za ..'
+alias cd='CD'
+alias ..='CD ..'
 alias pu='pushd'
 alias po='popd'
 alias -- -='cd -'
