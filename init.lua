@@ -109,6 +109,34 @@ local alert = require "hs.alert"
 local popclick = require "hs.noises"
 local eventtap = require "hs.eventtap"
 
+muteNotice = hs.menubar.new()
+function toggleMikeMute()
+   -- TODO This should mute *ALL* input devices, not just default
+   --      which can be set incorrectly to an unexpected input
+   local isMuted = hs.audiodevice.defaultInputDevice():inputMuted()
+   local newState = not isMuted
+   hs.audiodevice.defaultInputDevice():setMuted(newState)
+
+   if (tostring(newState) == "false") then
+      muteNotice:setTitle("")
+      alert.show("mike open!")
+   else
+      muteNotice:setTitle("MIKE MUTED")
+      alert.show("mike muted")
+   end
+end
+
+hs.hotkey.bind(my_key, "[", toggleMikeMute)
+
+function toggleSpeakerMute()
+   local isMuted = hs.audiodevice.defaultOutputDevice():outputMuted()
+   local newState = not isMuted
+   hs.audiodevice.defaultOutputDevice():setMuted(newState)
+   alert.show("speaker mute -> " .. tostring(newState))
+end
+
+hs.hotkey.bind(my_key, "]", toggleSpeakerMute)
+
 listener = nil
 popclickListening = false
 local scrollDownTimer = nil
