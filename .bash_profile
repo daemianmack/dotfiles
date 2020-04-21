@@ -2,8 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files for examples
 
 #  If we have keychain, start it and point it to the private keys that we'd like it to cache.
-if [ -f /usr/bin/keychain ]; then
-    /usr/bin/keychain ~/.ssh/id_?sa
+if [ -f /usr/local/bin/keychain ]; then
+    /usr/local/bin/keychain ~/.ssh/id_?sa
     source ~/.keychain/$HOSTNAME-sh > /dev/null
 else
     echo ""
