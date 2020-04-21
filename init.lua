@@ -87,18 +87,14 @@ end
 -- Here we specify the binary because otherwise Hammerspoon keys off
 -- the title of the window, which in GUI Emacs will be the buffer
 -- name, and thus always wrong, so HS will pop open multiple Emacses.
---focus_on_key("e", "/usr/local/Cellar/emacs/HEAD-4a51deb_1/bin/emacs")
-focus_on_key("e", "Emacs")
+--focus_on_key("e", "/usr/local/opt/emacs-plus/Emacs.app/Contents/MacOS/Emacs")
 open_on_key("c", "Google Chrome")
-open_on_key("z", "Iterm 2")
+open_on_key("z", "Iterm")
 open_on_key("m", "Messages")
+open_on_key("f", "Firefox")
 open_on_key("2", "Firefox")
 open_on_key("r", "Keybase")
-open_on_key("w", "IntelliJ IDEA CE")
 focus_on_key("q", "slack", "slack")
---focus_on_key("d", "Dbeaver", "Dbeaver")
-open_on_key("d", "preview")
-focus_on_key("s", "Skype 2", "Skype")
 
 
 
