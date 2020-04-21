@@ -302,9 +302,9 @@ function announce_return() {
         if [[ $_USER_COMMAND_EXIT_CODE -ne 130 && $_USER_COMMAND_EXIT_CODE -ne 146 ]]; then
             # Make unpleasant sound if exit status warrants.
             if [[ $_USER_COMMAND_EXIT_CODE -eq 1 ]]; then
-                afplay -r 5 /System/Library/Sounds/Basso.aiff & disown
+                afplay -r 5 /System/Library/Sounds/Basso.aiff & disown $!
             else
-                afplay -r 5 /System/Library/Sounds/Morse.aiff & disown
+                afplay -r 5 /System/Library/Sounds/Morse.aiff & disown $!
             fi
         fi
     fi
