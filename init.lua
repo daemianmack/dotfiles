@@ -153,59 +153,47 @@ listener = nil
 popclickListening = false
 local scrollDownTimer = nil
 function popclickHandler(evNum)
-   -- alert.show(tostring(evNum))
-   -- alert.show(application.frontmostApplication():name())
---   if evNum == 1 then
---     scrollDownTimer = timer.doEvery(0.02, function()
---       eventtap.scrollWheel({0,-10},{}, "pixel")
---       end)
---   elseif evNum == 2 then
---     if scrollDownTimer then
---       scrollDownTimer:stop()
---       scrollDownTimer = nil
---     end
-   --   else
    if evNum == 3 then
-if application.frontmostApplication():name() == "iTerm2" then
-       -- Issue tmux control leader.
-       eventtap.keyStroke({}, "`")
-       eventtap.keyStroke({}, "[")
-    else
-      eventtap.scrollWheel({0,-500},{}, "pixel")
-    end
-  end
+      if application.frontmostApplication():name() == "iTerm" then
+         -- Issue tmux control leader.
+         eventtap.keyStroke({}, "`")
+         eventtap.keyStroke({}, "[")
+      else
+         eventtap.scrollWheel({0,-500},{}, "pixel")
+      end
+   end
 end
 
 function popclickPlayPause()
-  if not popclickListening then
-    listener:start()
-    alert.show("listening")
-  else
-    listener:stop()
-    alert.show("stopped listening")
-  end
-  popclickListening = not popclickListening
+   if not popclickListening then
+      listener:start()
+      alert.show("listening")
+   else
+      listener:stop()
+      alert.show("stopped listening")
+   end
+   popclickListening = not popclickListening
 end
 
 local function wrap(fn)
-  return function(...)
-    if fn then
-      local ok, err = xpcall(fn, debug.traceback, ...)
-      if not ok then hs.showerror(err) end
-    end
-  end
+   return function(...)
+      if fn then
+         local ok, err = xpcall(fn, debug.traceback, ...)
+         if not ok then hs.showerror(err) end
+      end
+   end
 end
 
 function popclickInit()
-  popclickListening = false
-  -- local fn = wrap(popclickHandler)
-  local fn = popclickHandler
-  listener = popclick.new(fn)
+   popclickListening = false
+   -- local fn = wrap(popclickHandler)
+   local fn = popclickHandler
+   listener = popclick.new(fn)
 end
 
 function init()
-  popclickInit()
-  alert.show("Hammerspoon, at your service.")
+   popclickInit()
+   alert.show("Hammerspoon, at your service.")
 end
 
 hs.hotkey.bind(qux_key, "P", popclickPlayPause)
