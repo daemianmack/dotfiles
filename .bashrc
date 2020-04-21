@@ -500,10 +500,28 @@ alias llc="log_last_container"
 
 alias fk="fkill -v"
 
-function archive_log(){
-    local file=$1
-    local dir=$2
-    local now=$(date -u "+%Y-%m-%dT%H-%M-%S")
-    mv "$file" "$dir/$file-$now"
+function docnames(){
+    echo
+    docker ps --format "table {{.ID}}	{{.Status}}	{{.Names}}"
+    }
+
+function docstop(){
+    local name="dct_$1_1"
+    local cid=$(docker ps -q --filter "name=$name")
+    docker stop "$cid"
+    docnames
 }
+
+function docstart(){
+    local name="dct_$1_1"
+    local cid=$(docker ps -a -q --filter "name=$name")
+    docker start "$cid"
+    docnames
+}
+
+
+function jj {
+    jet --from json --pretty --keywordize $1
+}
+
 
