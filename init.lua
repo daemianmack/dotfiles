@@ -102,6 +102,7 @@ hs.hotkey.bind(qux_key, "l", hs.reload)
 
 hs.hotkey.bind(qux_key, "f", function() open("Finder") end)
 
+hs.hotkey.bind(qux_key, "e", function() open("zoom.us") end)
 
 local application = require "hs.application"
 local timer = require "hs.timer"
