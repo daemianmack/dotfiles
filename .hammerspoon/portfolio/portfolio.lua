@@ -1,5 +1,5 @@
-local program = "/Users/daemianmack/.hammerspoon/portfolio/evaluate-portfolio.clj"
-local program_args = {"--config", "/Users/daemianmack/.hammerspoon/portfolio/portfolio-config.edn"}
+local program = hs.fs.currentDir() .. "/portfolio/evaluate-portfolio.clj"
+local program_args = {"--config", hs.fs.currentDir() .. "/portfolio/portfolio-config.edn"}
 -- local program = "/Users/daemianmack/.hammerspoon/portfolio/foo.sh"
 -- local program = "/Users/daemianmack/.hammerspoon/portfolio/yahoo_finance.clj"
 print("!!!!!!!!!!!!!!!!!!!")
