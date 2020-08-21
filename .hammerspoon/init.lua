@@ -252,3 +252,5 @@ function print_focused_title()
 end
 
 hs.hotkey.bind(my_key, "p", print_focused_title)
+
+require("portfolio/portfolio")
