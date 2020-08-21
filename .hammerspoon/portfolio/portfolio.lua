@@ -1,8 +1,6 @@
 local program = hs.fs.currentDir() .. "/portfolio/evaluate-portfolio.clj"
 local program_args = {"--config", hs.fs.currentDir() .. "/portfolio/portfolio-config.edn"}
--- local program = "/Users/daemianmack/.hammerspoon/portfolio/foo.sh"
--- local program = "/Users/daemianmack/.hammerspoon/portfolio/yahoo_finance.clj"
-print("!!!!!!!!!!!!!!!!!!!")
+
 local ticker_url = "https://robinhood.com/stocks/"
 
 local menubar = hs.menubar.new()
@@ -61,6 +59,8 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
 end
 
 local function market_is_open(date_obj)
+   -- This is a little bit wrong in that it will run
+   -- more than it should for half an hour, but
    return date_obj.wday > 0 and date_obj.wday < 7
       and date_obj.hour > 8 and date_obj.hour < 16
 end
