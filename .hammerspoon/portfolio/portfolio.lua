@@ -19,7 +19,7 @@ end
 
 local format_menu_item = function(quote)
    local symbol   = quote["symbol"]
-   local value    = string.format("%s$%s", left_pad(quote["value"], 4), quote["value"])
+   local value    = string.format("%s$%s", left_pad(quote["value"], 5), quote["value"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 3), quote["holding"])
    local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 7), quote["regularMarketPrice"])
    local previous = quote["previousClose"]
