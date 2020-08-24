@@ -36,9 +36,7 @@ local format_url = function(quote)
 end
 
 local render_portfolio = function(exitCode, stdOut, stdErr)
-   local portfolio = hs.json.decode(stdOut)
-   print("portfolio")
-   print(portfolio)
+    local portfolio = hs.json.decode(stdOut)
     local color = good_color
     if portfolio["total_value"] < 0 then
        color = bad_color
@@ -72,7 +70,6 @@ local function refresh_portfolio()
    if market_is_open(now) or not portfolio_task  then
       print("Portfolio updating...")
       portfolio_task = hs.task.new(program, render_portfolio, program_args)
-      print(portfolio_task:start())
    else
       print("Skipping portfolio update.")
    end
