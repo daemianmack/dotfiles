@@ -70,6 +70,7 @@ local function refresh_portfolio()
    if market_is_open(now) or not portfolio_task  then
       print("Portfolio updating...")
       portfolio_task = hs.task.new(program, render_portfolio, program_args)
+      portfolio_task:start()
    else
       print("Skipping portfolio update.")
    end
