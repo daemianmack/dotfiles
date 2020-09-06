@@ -83,7 +83,7 @@ end
 local function market_is_open(date_obj)
    -- This is a little bit wrong in that it will run
    -- more than it should for half an hour, but
-   return date_obj.wday > 0 and date_obj.wday < 7
+   return date_obj.wday > 1 and date_obj.wday < 7
       and date_obj.hour > 8 and date_obj.hour < 16
 end
 
