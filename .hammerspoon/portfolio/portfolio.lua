@@ -4,7 +4,7 @@ local program_args = {"--config", hs.fs.currentDir() .. "/portfolio/portfolio-co
 local ticker_url = "https://robinhood.com/stocks/"
 
 local menubar = hs.menubar.new()
-local font = "Monaco"
+local font = {name = "Monaco", size = 9}
 
 local bad_color = hs.drawing.color.x11.red
 local good_color = hs.drawing.color.x11.green
@@ -19,7 +19,7 @@ local format_menu_item = function(quote)
    local symbol   = quote["symbol"]
    local value    = string.format("%s$%s", left_pad(quote["value"], 5), quote["value"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 3), quote["holding"])
-   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 7), quote["regularMarketPrice"])
+   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
    local previous = quote["previousClose"]
    local color    = good_color
 
@@ -35,6 +35,17 @@ local format_url = function(quote)
    return function() hs.urlevent.openURL(url) end
 end
 
+local format_ticker_value = function(quote)
+   local symbol_color = good_color
+   if quote["regularMarketPrice"] < quote["previousClose"] then
+      symbol_color = bad_color
+   end
+
+   local val = hs.styledtext.new(quote["symbol"] .. "•", {color = symbol_color, font = {size=9}})
+      .. hs.styledtext.new(quote["value"], {color=hs.drawing.color.x11.cornflowerblue, font = font})
+   return val
+end
+
 local render_portfolio = function(exitCode, stdOut, stdErr)
     local portfolio = hs.json.decode(stdOut)
     local color = good_color
@@ -42,10 +53,23 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
        color = bad_color
     end
 
-    menubar:setTitle(hs.styledtext.new(portfolio["total_value"], {font = font, color = color})) 
+    local title = hs.styledtext.new("", {font=font})
+
+    local quotes_by_symbol = portfolio["by_symbol"]
+    if #quotes_by_symbol > 1 then
+       for i = 1, #quotes_by_symbol, 1 do
+          title = title .. format_ticker_value(quotes_by_symbol[i])
+          if quotes_by_symbol[i+1] then
+             title = title .. hs.styledtext.new(" ＋ ", {font = font})
+          else
+             title = title .. hs.styledtext.new(" ≈ ", {font = font})
+          end
+       end
+    end
+
+    menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = good_color}))
     menubar:setTooltip(os.date("%x %X"))
     
-    local quotes_by_symbol = portfolio["by_symbol"]
     if #quotes_by_symbol > 1 then
         local submenu = { }
         for i = 1, #quotes_by_symbol, 1 do
