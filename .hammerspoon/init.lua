@@ -105,7 +105,7 @@ open_on_key("2", "Firefox")
 open_on_key("r", "Keybase")
 hs.hotkey.bind(my_key, "q", function() launch_local_applescript("slack.applescript") end)
 hs.hotkey.bind(my_key, "w", function() launch_local_applescript("slack.applescript") end)
-hs.hotkey.bind(my_key, "s", function() launch_local_applescript("skype.applescript") end)
+hs.hotkey.bind(my_key, "s", function() launch_local_applescript("screen_sharing.applescript") end)
 
 
 
@@ -113,7 +113,8 @@ hs.hotkey.bind(qux_key, "l", hs.reload)
 
 hs.hotkey.bind(qux_key, "f", function() open("Finder") end)
 
-hs.hotkey.bind(qux_key, "e", function() open("zoom.us") end)
+hs.hotkey.bind(my_key, "e", function() open("/Applications/zoom.us.app") end)
+hs.hotkey.bind(qux_key, "e", function() open("/Applications/zoom.us.app") end)
 
 local application = require "hs.application"
 local timer = require "hs.timer"
