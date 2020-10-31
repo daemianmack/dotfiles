@@ -67,7 +67,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
        end
     end
 
-    menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = good_color}))
+    menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color}))
     menubar:setTooltip(os.date("%x %X"))
     
     if #quotes_by_symbol > 1 then
