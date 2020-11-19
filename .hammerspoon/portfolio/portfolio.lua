@@ -26,7 +26,7 @@ local format_menu_item = function(quote)
    if quote["regularMarketPrice"] < previous then
       color = bad_color
    end
-   
+
    return hs.styledtext.new(symbol .. " " .. value .. " · " .. price .. " * " .. holding, { font=font, color = color })
 end
 
@@ -56,21 +56,29 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
     local title = hs.styledtext.new("", {font=font})
 
     local quotes_by_symbol = portfolio["by_symbol"]
-    if #quotes_by_symbol > 1 then
+    if #quotes_by_symbol > 0 then
        for i = 1, #quotes_by_symbol, 1 do
           title = title .. format_ticker_value(quotes_by_symbol[i])
-          if quotes_by_symbol[i+1] then
-             title = title .. hs.styledtext.new(" ＋ ", {font = font})
-          else
-             title = title .. hs.styledtext.new(" ≈ ", {font = font})
+          if #quotes_by_symbol > 1 then
+             if quotes_by_symbol[i+1] then
+                title = title .. hs.styledtext.new(" ＋ ", {font = font})
+             else
+                title = title .. hs.styledtext.new(" ≈ ", {font = font})
+             end
           end
        end
     end
 
-    menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color}))
-    menubar:setTooltip(os.date("%x %X"))
-    
+
     if #quotes_by_symbol > 1 then
+       menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color}))
+    else
+       menubar:setTitle(title)
+    end
+
+    menubar:setTooltip(os.date("%x %X"))
+
+    if #quotes_by_symbol > 0 then
         local submenu = { }
         for i = 1, #quotes_by_symbol, 1 do
            table.insert(submenu, { title = format_menu_item(quotes_by_symbol[i]),
