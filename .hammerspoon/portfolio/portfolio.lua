@@ -41,8 +41,13 @@ local format_ticker_value = function(quote)
       symbol_color = bad_color
    end
 
-   local val = hs.styledtext.new(quote["symbol"] .. "•", {color = symbol_color, font = {size=9}})
-      .. hs.styledtext.new(quote["value"], {color=hs.drawing.color.x11.cornflowerblue, font = font})
+   local dollar_display=quote["value"]
+   if quote["holding"] == 0 then
+      dollar_display = "⋖" .. math.modf(quote["regularMarketPrice"]) .. "⋗"
+   end
+
+   local val = hs.styledtext.new(quote["symbol"] .. " ", {color = symbol_color, font = {size=9}})
+      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
 
@@ -61,9 +66,9 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
           title = title .. format_ticker_value(quotes_by_symbol[i])
           if #quotes_by_symbol > 1 then
              if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new(" ＋ ", {font = font})
+                title = title .. hs.styledtext.new(" ┊  ", {font = font, color=hs.drawing.color.x11.navy})
              else
-                title = title .. hs.styledtext.new(" ≈ ", {font = font})
+                title = title .. hs.styledtext.new(" ≈ ", {font = font, color=hs.drawing.color.x11.navy})
              end
           end
        end
