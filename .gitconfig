@@ -2,8 +2,9 @@
   name = Daemian Mack
   email = daemianmack@gmail.com
 [color]
-  diff = auto
-  status = auto
+	diff = auto
+	status = auto
+	branch = auto
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -38,6 +39,7 @@ l = log --pretty=format:'%Cgreen%h%Creset  %<(32)%Cred%cD%Creset %Cblue%cn%Crese
 [core]
   excludesfile = ~/.gitignore
   attributesfile = /Users/daemianmack/.gitattributes
+  pager = delta
 [help]
   autocorrect = 1
 [diff]
@@ -47,3 +49,37 @@ l = log --pretty=format:'%Cgreen%h%Creset  %<(32)%Cred%cD%Creset %Cblue%cn%Crese
   xfuncname = (^\\(.*|\\s*\\(defn.*)
 [github]
   user = daemianmack
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  syntax-theme = Monokai Extended
+  line-numbers = true
+  side-by-side = true
+  features = unobtrusive-line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "unobtrusive-line-numbers"]
+line-numbers = true
+line-numbers-minus-style = "#444444"
+line-numbers-zero-style = "#444444"
+line-numbers-plus-style = "#444444"
+line-numbers-left-format = "{nm:>4}┊"
+line-numbers-right-format = "{np:>4}│"
+line-numbers-left-style = blue
+line-numbers-right-style = blue
+
+[delta "decorations"]
+commit-decoration-style = bold black blue box 
+file-style = bold white blue ul
+file-decoration-style = bold blue 
+hunk-header-decoration-style = bold blue box
+
+[filter "lfs"]
+	smudge = git-lfs smudge --skip %f
+	process = git-lfs filter-process
+	clean = git-lfs clean -- %f
+	required = true
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
