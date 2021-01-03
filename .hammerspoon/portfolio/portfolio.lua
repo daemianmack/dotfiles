@@ -43,7 +43,7 @@ local format_ticker_value = function(quote)
 
    local dollar_display=quote["value"]
    if quote["holding"] == 0 then
-      dollar_display = "⋖" .. math.modf(quote["regularMarketPrice"]) .. "⋗"
+      dollar_display = "⌜" .. math.modf(quote["regularMarketPrice"]) .. "⌟"
    end
 
    local val = hs.styledtext.new(quote["symbol"] .. " ", {color = symbol_color, font = {size=9}})
