@@ -101,16 +101,9 @@ local function market_is_open(date_obj)
 end
 
 local function refresh_portfolio()
-   local now = os.date("*t")
-   -- If market is closed, don't bother updating unless we've reloaded
-   -- Hammerspoon config, in which case get outdated values just for display.
-   if market_is_open(now) or not portfolio_task  then
-      print("Portfolio updating...")
-      portfolio_task = hs.task.new(program, render_portfolio, program_args)
-      portfolio_task:start()
-   else
-      print("Skipping portfolio update.")
-   end
+    print("Portfolio updating...")
+    portfolio_task = hs.task.new(program, render_portfolio, program_args)
+    portfolio_task:start()
 end
 
 portfolio_task_timer = hs.timer.new(REFRESH_PORTFOLIO_TIMER, refresh_portfolio, true):start()
