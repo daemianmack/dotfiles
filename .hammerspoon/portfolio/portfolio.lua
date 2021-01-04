@@ -9,7 +9,7 @@ local font = {name = "Monaco", size = 9}
 local bad_color = hs.drawing.color.x11.red
 local good_color = hs.drawing.color.x11.green
 
-local REFRESH_PORTFOLIO_TIMER = 60 * 5 -- minutes
+local REFRESH_PORTFOLIO_TIMER = 60 * 1 -- minutes
 
 local left_pad = function(str, width)
   return string.rep(" ", width-(string.len(str)))
