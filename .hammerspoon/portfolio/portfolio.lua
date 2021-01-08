@@ -60,7 +60,7 @@ local format_type_value = function(quote)
    local dollar_display=quote["total"]
 
    local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = {size=9}})
-      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
+      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = font})
    return val
 end
 
