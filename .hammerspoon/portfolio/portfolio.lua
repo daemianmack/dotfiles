@@ -16,7 +16,7 @@ local left_pad = function(str, width)
 end
 
 local format_menu_item = function(quote)
-   local symbol   = quote["symbol"]
+   local label   = quote["label"]
    local value    = string.format("%s$%s", left_pad(quote["value"], 5), quote["value"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 3), quote["holding"])
    local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
@@ -27,7 +27,7 @@ local format_menu_item = function(quote)
       color = bad_color
    end
 
-   return hs.styledtext.new(symbol .. " " .. value .. " · " .. price .. " * " .. holding, { font=font, color = color })
+   return hs.styledtext.new(label .. " " .. value .. " · " .. price .. " * " .. holding, { font=font, color = color })
 end
 
 local format_url = function(quote)
@@ -46,7 +46,7 @@ local format_ticker_value = function(quote)
       dollar_display = "⌜" .. math.modf(quote["regularMarketPrice"]) .. "⌟"
    end
 
-   local val = hs.styledtext.new(quote["symbol"] .. " ", {color = symbol_color, font = {size=9}})
+   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = {size=9}})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end

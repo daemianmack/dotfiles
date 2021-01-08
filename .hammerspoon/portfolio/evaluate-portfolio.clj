@@ -11,12 +11,13 @@
     (-> parsed :chart :result first :meta)))
 
 (defn data-for-symbol
-  [{:keys [symbol holding cost-basis] :as config}]
+  [{:keys [symbol label holding cost-basis] :as config}]
   (let [ticker-data (fetch-ticker-data (name symbol))
         data        (select-keys ticker-data [:symbol :regularMarketPrice :previousClose])
         holding     (or holding 0)
         cost-basis  (or cost-basis (:regularMarketPrice data))]
     (assoc data
+           :label (or label symbol)
            :value (int (* holding (- (:regularMarketPrice data)
                                      cost-basis)))
            :holding holding)))
