@@ -46,7 +46,7 @@ local format_ticker_value = function(quote)
       symbol_color = bad_color
    end
 
-   local val = hs.styledtext.new(quote["local"] .. " ", {color = symbol_color, font = {size=9}})
+   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = {size=9}})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
