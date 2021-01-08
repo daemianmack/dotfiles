@@ -51,6 +51,19 @@ local format_ticker_value = function(quote)
    return val
 end
 
+local format_type_value = function(quote)
+   local symbol_color = good_color
+   if quote["total"] < 1 then
+      symbol_color = bad_color
+   end
+
+   local dollar_display=quote["total"]
+
+   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = {size=9}})
+      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
+   return val
+end
+
 local render_portfolio = function(exitCode, stdOut, stdErr)
     local portfolio = hs.json.decode(stdOut)
     local color = good_color
@@ -60,20 +73,29 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
 
     local title = hs.styledtext.new("", {font=font})
 
+    local quotes_by_type = portfolio["by_type"]
+    if #quotes_by_type > 0 then
+       for i = 1, #quotes_by_type, 1 do
+          title = title .. format_type_value(quotes_by_type[i])
+          if #quotes_by_type > 1 then
+              title = title .. hs.styledtext.new(" ┊ ", {font = font, color=hs.drawing.color.x11.navy})
+          end
+       end
+    end
+
     local quotes_by_symbol = portfolio["by_symbol"]
     if #quotes_by_symbol > 0 then
        for i = 1, #quotes_by_symbol, 1 do
           title = title .. format_ticker_value(quotes_by_symbol[i])
           if #quotes_by_symbol > 1 then
              if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new(" ┊  ", {font = font, color=hs.drawing.color.x11.navy})
+                title = title .. hs.styledtext.new(" ┊ ", {font = font, color=hs.drawing.color.x11.navy})
              else
                 title = title .. hs.styledtext.new(" ≈ ", {font = font, color=hs.drawing.color.x11.navy})
              end
           end
        end
     end
-
 
     if #quotes_by_symbol > 1 then
        menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color}))
