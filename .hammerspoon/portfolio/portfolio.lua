@@ -9,7 +9,7 @@ local font = {name = "Monaco", size = 9}
 local bad_color = hs.drawing.color.x11.red
 local good_color = hs.drawing.color.x11.green
 
-local REFRESH_PORTFOLIO_TIMER = 60 * 5 -- minutes
+local REFRESH_PORTFOLIO_TIMER = 60 * 1 -- minutes
 
 local left_pad = function(str, width)
   return string.rep(" ", width-(string.len(str)))
@@ -36,17 +36,17 @@ local format_url = function(quote)
 end
 
 local format_ticker_value = function(quote)
-   local symbol_color = good_color
-   if quote["regularMarketPrice"] < quote["previousClose"] then
-      symbol_color = bad_color
-   end
-
    local dollar_display=quote["value"]
    if quote["holding"] == 0 then
       dollar_display = "⌜" .. math.modf(quote["regularMarketPrice"]) .. "⌟"
    end
 
-   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = {size=9}})
+   local symbol_color = good_color
+   if 0 > dollar_display then
+      symbol_color = bad_color
+   end
+
+   local val = hs.styledtext.new(quote["local"] .. " ", {color = symbol_color, font = {size=9}})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
@@ -67,7 +67,7 @@ end
 local render_portfolio = function(exitCode, stdOut, stdErr)
     local portfolio = hs.json.decode(stdOut)
     local color = good_color
-    if portfolio["total_value"] < 0 then
+    if 0 > portfolio["total_value"] then
        color = bad_color
     end
 
