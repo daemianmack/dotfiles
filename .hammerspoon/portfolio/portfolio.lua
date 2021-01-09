@@ -5,6 +5,7 @@ local ticker_url = "https://robinhood.com/stocks/"
 
 local menubar = hs.menubar.new()
 local font = {name = "Monaco", size = 9}
+local bold_font = {name = "MonacoB2 Bold", size = 9}
 
 local bad_color = hs.drawing.color.x11.red
 local good_color = hs.drawing.color.x11.green
@@ -46,7 +47,7 @@ local format_ticker_value = function(quote)
       symbol_color = bad_color
    end
 
-   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = {size=9}})
+   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = font})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
@@ -59,8 +60,8 @@ local format_type_value = function(quote)
 
    local dollar_display=quote["total"]
 
-   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = {size=9}})
-      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = font})
+   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = bold_font})
+      .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = bold_font})
    return val
 end
 
@@ -78,7 +79,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
        for i = 1, #quotes_by_type, 1 do
           title = title .. format_type_value(quotes_by_type[i])
           if #quotes_by_type > 1 then
-              title = title .. hs.styledtext.new(" ┊ ", {font = font, color=hs.drawing.color.x11.navy})
+              title = title .. hs.styledtext.new("┊", {font = font, color=hs.drawing.color.x11.navy})
           end
        end
     end
@@ -89,7 +90,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
           title = title .. format_ticker_value(quotes_by_symbol[i])
           if #quotes_by_symbol > 1 then
              if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new(" ┊ ", {font = font, color=hs.drawing.color.x11.navy})
+                title = title .. hs.styledtext.new("┊", {font = font, color=hs.drawing.color.x11.navy})
              else
                 title = title .. hs.styledtext.new(" ≈ ", {font = font, color=hs.drawing.color.x11.navy})
              end
