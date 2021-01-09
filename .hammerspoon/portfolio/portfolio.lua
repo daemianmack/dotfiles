@@ -114,6 +114,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
         end
         menubar:setMenu(submenu)
     end
+    print("Portfolio updated.")
 end
 
 local function market_is_open(date_obj)
