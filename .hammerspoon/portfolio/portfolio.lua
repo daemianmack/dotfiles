@@ -4,7 +4,9 @@ local program_args = {"--config", hs.fs.currentDir() .. "/portfolio/portfolio-co
 local ticker_url = "https://robinhood.com/stocks/"
 
 local menubar = hs.menubar.new()
-local font = {name = "Monaco", size = 9}
+local symb = {name = "Monaco", size = 7}
+local font = {name = "Monaco", size = 8}
+local bold_symb = {name = "MonacoB2 Bold", size = 7}
 local bold_font = {name = "MonacoB2 Bold", size = 9}
 
 local bad_color = hs.drawing.color.x11.red
@@ -47,7 +49,7 @@ local format_ticker_value = function(quote)
       symbol_color = bad_color
    end
 
-   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = font})
+   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
@@ -60,7 +62,7 @@ local format_type_value = function(quote)
 
    local dollar_display=quote["total"]
 
-   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = bold_font})
+   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = bold_symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = bold_font})
    return val
 end
