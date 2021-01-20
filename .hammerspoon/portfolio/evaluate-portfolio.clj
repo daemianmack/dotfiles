@@ -53,6 +53,7 @@
 ;; close, along with a total value, like...
 ;;
 ;;  {"total_value":375
+;;   "by_type" [{"type": "S", "total": 375}],
 ;;   "by_symbol":[{"symbol":"BA"
 ;;                 "regularMarketPrice":167.5
 ;;                 "previousClose":169.58
