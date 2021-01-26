@@ -76,28 +76,29 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
 
     local title = hs.styledtext.new("", {font=font})
 
-    local quotes_by_type = portfolio["by_type"]
-    if #quotes_by_type > 0 then
-       for i = 1, #quotes_by_type, 1 do
-          title = title .. format_type_value(quotes_by_type[i])
-          if #quotes_by_type > 1 then
-              title = title .. hs.styledtext.new("┊", {font = font, color=hs.drawing.color.x11.navy})
-          end
-       end
-    end
-
     local quotes_by_symbol = portfolio["by_symbol"]
     if #quotes_by_symbol > 0 then
        for i = 1, #quotes_by_symbol, 1 do
           title = title .. format_ticker_value(quotes_by_symbol[i])
           if #quotes_by_symbol > 1 then
              if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new("┊", {font = font, color=hs.drawing.color.x11.navy})
-             else
-                title = title .. hs.styledtext.new(" ≈ ", {font = font, color=hs.drawing.color.x11.navy})
+                title = title .. hs.styledtext.new(" ", {font = font, color=hs.drawing.color.x11.navy})
              end
           end
        end
+    end
+
+    local quotes_by_type = portfolio["by_type"]
+    title = title .. hs.styledtext.new(" ‣ ", {font = font, color=hs.drawing.color.x11.navy})
+
+    if #quotes_by_type > 0 then
+       for i = 1, #quotes_by_type, 1 do
+          title = title .. format_type_value(quotes_by_type[i])
+          if quotes_by_type[i+1] then
+             title = title .. " "
+          end
+       end
+       title = title .. hs.styledtext.new(" ‣ ", {font = font, color=hs.drawing.color.x11.navy})
     end
 
     if #quotes_by_symbol > 1 then
