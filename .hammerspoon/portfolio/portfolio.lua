@@ -82,7 +82,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
           title = title .. format_ticker_value(quotes_by_symbol[i])
           if #quotes_by_symbol > 1 then
              if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new("┊", {font = font, color=hs.drawing.color.x11.navy})
+                title = title .. hs.styledtext.new(" ", {font = font, color=hs.drawing.color.x11.navy})
              end
           end
        end
