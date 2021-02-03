@@ -45,8 +45,10 @@ local format_ticker_value = function(quote)
    end
 
    local symbol_color = good_color
-   if 0 > dollar_display then
-      symbol_color = bad_color
+   if quote["holding"] ~= 0 then
+      if 0 > dollar_display then
+         symbol_color = bad_color
+      end
    end
 
    local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = symb})
