@@ -51,7 +51,7 @@ local format_ticker_value = function(quote)
       end
    end
 
-   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = symb})
+   local val = hs.styledtext.new(quote["label"] .. "", {color = symbol_color, font = symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
@@ -64,7 +64,7 @@ local format_type_value = function(quote)
 
    local dollar_display=quote["total"]
 
-   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = bold_symb})
+   local val = hs.styledtext.new(quote["type"] .. "", {color = symbol_color, font = bold_symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = bold_font})
    return val
 end
