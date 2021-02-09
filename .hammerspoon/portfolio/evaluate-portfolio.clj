@@ -11,7 +11,7 @@
     (-> parsed :chart :result first :meta)))
 
 (defn data-for-symbol
-3  [{:keys [symbol label type holding cost-basis] :as config}]
+  [{:keys [symbol label type holding cost-basis] :as config}]
   (let [ticker-data (fetch-ticker-data (name symbol))
         quote       (select-keys ticker-data [:symbol :regularMarketPrice :previousClose])
         holding     (or holding 0)
