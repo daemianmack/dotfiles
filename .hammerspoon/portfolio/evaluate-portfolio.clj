@@ -27,7 +27,7 @@
   [symbol-data]
   (let [total-value (apply + (map :value symbol-data))]
     {:total_value total-value
-     :by_symbol   symbol-data
+     :by_symbol   (sort-by :value > symbol-data)
      :by_type     (reduce-kv
                    (fn [acc type rows]
                      (conj acc {:type type
@@ -58,11 +58,13 @@
 ;;                 "regularMarketPrice":167.5
 ;;                 "previousClose":169.58
 ;;                 "value":117
+;;                 "type": "S"
 ;;                 "holding":1}
 ;;                {"symbol":"HD"
 ;;                 "regularMarketPrice":283.23
 ;;                 "previousClose":280.68
 ;;                 "value":258
+;;                 "type": "S"
 ;;                 "holding":1}]}
 
 (let [opts (-> *command-line-args*
