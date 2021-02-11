@@ -13,21 +13,32 @@
 (defn data-for-symbol
   [{:keys [symbol label type holding cost-basis] :as config}]
   (let [ticker-data (fetch-ticker-data (name symbol))
-        quote       (select-keys ticker-data [:symbol :regularMarketPrice :previousClose])
+        quote       (select-keys ticker-data [:symbol :previousClose])
         holding     (or holding 0)
         cost-basis  (or cost-basis (:regularMarketPrice quote))]
     (assoc quote
            :type  type
            :label (or label symbol)
-           :value (int (* holding (- (:regularMarketPrice quote)
+           :regularMarketPrice (:regularMarketPrice ticker-data)
+           :value (int (* holding (- (:regularMarketPrice ticker-data)
                                      cost-basis)))
            :holding holding)))
+
+(defn scale-number
+  [n]
+  (if (> 1 n)
+    (.setScale (bigdec n) 2 BigDecimal/ROUND_HALF_EVEN)
+    (.setScale (bigdec n) 0 BigDecimal/ROUND_HALF_EVEN)))
 
 (defn tally-data
   [symbol-data]
   (let [total-value (apply + (map :value symbol-data))]
     {:total_value total-value
-     :by_symbol   (sort-by :value > symbol-data)
+     :by_symbol   (map (fn [m]
+                         (-> m
+                             (update :regularMarketPrice scale-number)
+                             (update :holding scale-number)))
+                       (sort-by :value > symbol-data))
      :by_type     (reduce-kv
                    (fn [acc type rows]
                      (conj acc {:type type
