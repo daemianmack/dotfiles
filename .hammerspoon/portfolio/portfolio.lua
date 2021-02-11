@@ -4,10 +4,12 @@ local program_args = {"--config", hs.fs.currentDir() .. "/portfolio/portfolio-co
 local ticker_url = "https://robinhood.com/stocks/"
 
 local menubar = hs.menubar.new()
-local symb = {name = "Monaco", size = 7}
+local symb = {name = "Monaco", size = 9}
 local font = {name = "Monaco", size = 8}
 local bold_symb = {name = "MonacoB2 Bold", size = 7}
 local bold_font = {name = "MonacoB2 Bold", size = 9}
+
+local menu_font = {name = "Monaco", size = 11}
 
 local bad_color = hs.drawing.color.x11.red
 local good_color = hs.drawing.color.x11.green
@@ -19,10 +21,15 @@ local left_pad = function(str, width)
 end
 
 local format_menu_item = function(quote)
-   local label   = quote["label"]
-   local value    = string.format("%s$%s", left_pad(quote["value"], 5), quote["value"])
-   local holding  = string.format("%s%s",  left_pad(quote["holding"], 3), quote["holding"])
-   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
+   local symbol   = string.format("%s%s", left_pad(quote["symbol"], 8), quote["symbol"])
+   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 6), quote["regularMarketPrice"])
+   local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
+   local value = 0
+   if 0 > quote["value"] then
+     value = string.format("%s-$%s", left_pad(quote["value"], 3), math.abs(quote["value"]))
+   else
+     value = string.format("%s$%s", left_pad(quote["value"], 4), math.abs(quote["value"]))
+    end
    local previous = quote["previousClose"]
    local color    = good_color
 
@@ -30,7 +37,7 @@ local format_menu_item = function(quote)
       color = bad_color
    end
 
-   return hs.styledtext.new(label .. " " .. value .. " · " .. price .. " * " .. holding, { font=font, color = color })
+   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. value, { font=menu_font, color = color })
 end
 
 local format_url = function(quote)
@@ -51,7 +58,7 @@ local format_ticker_value = function(quote)
       end
    end
 
-   local val = hs.styledtext.new(quote["label"] .. "", {color = symbol_color, font = symb})
+   local val = hs.styledtext.new(quote["label"] .. " ", {color = symbol_color, font = symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.cornflowerblue, font = font})
    return val
 end
@@ -64,7 +71,7 @@ local format_type_value = function(quote)
 
    local dollar_display=quote["total"]
 
-   local val = hs.styledtext.new(quote["type"] .. "", {color = symbol_color, font = bold_symb})
+   local val = hs.styledtext.new(quote["type"] .. " ", {color = symbol_color, font = bold_symb})
       .. hs.styledtext.new(dollar_display, {color=hs.drawing.color.x11.fuchsia, font = bold_font})
    return val
 end
