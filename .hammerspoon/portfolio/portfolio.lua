@@ -85,21 +85,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
 
     local title = hs.styledtext.new("", {font=font})
 
-    local quotes_by_symbol = portfolio["by_symbol"]
-    if #quotes_by_symbol > 0 then
-       for i = 1, #quotes_by_symbol, 1 do
-          title = title .. format_ticker_value(quotes_by_symbol[i])
-          if #quotes_by_symbol > 1 then
-             if quotes_by_symbol[i+1] then
-                title = title .. hs.styledtext.new(" ", {font = font, color=hs.drawing.color.x11.navy})
-             end
-          end
-       end
-    end
-
     local quotes_by_type = portfolio["by_type"]
-    title = title .. hs.styledtext.new(" ‣ ", {font = font, color=hs.drawing.color.x11.navy})
-
     if #quotes_by_type > 0 then
        for i = 1, #quotes_by_type, 1 do
           title = title .. format_type_value(quotes_by_type[i])
@@ -110,12 +96,12 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
        title = title .. hs.styledtext.new(" ‣ ", {font = font, color=hs.drawing.color.x11.navy})
     end
 
+    local quotes_by_symbol = portfolio["by_symbol"]
     if #quotes_by_symbol > 1 then
-       menubar:setTitle(title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color}))
-    else
-       menubar:setTitle(title)
+       title = title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color})
     end
 
+    menubar:setTitle(title)
     menubar:setTooltip(os.date("%x %X"))
 
     if #quotes_by_symbol > 0 then
