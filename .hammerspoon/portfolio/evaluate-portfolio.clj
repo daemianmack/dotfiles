@@ -15,14 +15,15 @@
   (let [ticker-data (fetch-ticker-data (name symbol))
         quote       (select-keys ticker-data [:symbol :previousClose])
         holding     (or holding 0)
-        cost-basis  (or cost-basis (:regularMarketPrice quote))]
+        cost        (or cost-basis (:regularMarketPrice quote))]
     (assoc quote
            :type  type
            :label (or label symbol)
            :regularMarketPrice (:regularMarketPrice ticker-data)
            :value (int (* holding (- (:regularMarketPrice ticker-data)
-                                     cost-basis)))
-           :holding holding)))
+                                     cost)))
+           :holding holding
+           :cost_basis (or cost-basis 0))))
 
 (defn scale-number
   [n]

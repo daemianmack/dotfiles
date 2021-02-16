@@ -107,8 +107,10 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
     if #quotes_by_symbol > 0 then
         local submenu = { }
         for i = 1, #quotes_by_symbol, 1 do
-           table.insert(submenu, { title = format_menu_item(quotes_by_symbol[i]),
-                                   fn    = format_url(quotes_by_symbol[i])})
+           local quote = quotes_by_symbol[i]
+           table.insert(submenu, { title   = format_menu_item(quote),
+                                   fn      = format_url(quote),
+                                   tooltip = "Cost basis: " .. quote["cost_basis"]})
         end
         menubar:setMenu(submenu)
     end
