@@ -22,13 +22,13 @@ end
 
 local format_menu_item = function(quote)
    local symbol   = string.format("%s%s", left_pad(quote["symbol"], 8), quote["symbol"])
-   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 6), quote["regularMarketPrice"])
+   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
    local value = 0
    if 0 > quote["value"] then
-     value = string.format("%s-$%s", left_pad(quote["value"], 3), math.abs(quote["value"]))
+     value = string.format("%s-$%s", left_pad(quote["value"], 5), math.abs(quote["value"]))
    else
-     value = string.format("%s$%s", left_pad(quote["value"], 4), math.abs(quote["value"]))
+     value = string.format("%s$%s", left_pad(quote["value"], 5), math.abs(quote["value"]))
     end
    local previous = quote["previousClose"]
    local color    = good_color
