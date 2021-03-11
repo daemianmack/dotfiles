@@ -19,7 +19,7 @@
      (.setScale (bigdec n) 0 BigDecimal/ROUND_HALF_EVEN))))
 
 (defn data-for-symbol
-  [{:keys [symbol label type holding cost-basis] :as config}]
+  [{:keys [symbol label icon type holding cost-basis] :as config}]
   (let [ticker-data (fetch-ticker-data (name symbol))
         quote       (select-keys ticker-data [:symbol :previousClose])
         holding     (or holding 0)
@@ -27,6 +27,7 @@
     (assoc quote
            :type  type
            :label (or label symbol)
+           :icon  icon
            :regularMarketPrice (scale-number (:regularMarketPrice ticker-data) 2)
            :value (scale-number (* holding (- (:regularMarketPrice ticker-data)
                                               cost))

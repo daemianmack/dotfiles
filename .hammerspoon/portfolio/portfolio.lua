@@ -21,7 +21,7 @@ local left_pad = function(str, width)
 end
 
 local format_menu_item = function(quote)
-   local symbol   = string.format("%s%s", left_pad(quote["symbol"], 8), quote["symbol"])
+   local symbol   = string.format("%s%s",  left_pad(quote["symbol"], 8), quote["symbol"])
    local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
    local value = 0
@@ -30,6 +30,12 @@ local format_menu_item = function(quote)
    else
      value = string.format("%s$%s", left_pad(quote["value"], 5), math.abs(quote["value"]))
     end
+
+   local icon = " "
+   if quote["icon"] ~= nil then
+     icon = icon .. quote["icon"]
+   end
+
    local previous = quote["previousClose"]
    local color    = good_color
 
@@ -37,7 +43,7 @@ local format_menu_item = function(quote)
       color = bad_color
    end
 
-   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. value, { font=menu_font, color = color })
+   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. value .. icon, { font=menu_font, color = color })
 end
 
 local format_url = function(quote)
