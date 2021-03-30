@@ -25,13 +25,13 @@
         holding        (or holding 0)
         price          (:regularMarketPrice ticker-data)
         cost           (or cost-basis price)
-        gains          (scale-number (* holding (- price cost))
-                            0)
-        equity         (scale-number (* holding price)
-                             0)
+        gains          (scale-number (* holding (- price cost)) 0)
+        equity         (scale-number (* holding price) 0)
         equity-percent (if cost-basis
-                         (scale-number (/ (* holding price)
-                                          (* holding cost)) 2)
+                         (scale-number (* 100
+                                          (/ (* holding price)
+                                             (* holding cost)))
+                                       2)
                          0)]
     (assoc quote
            :type  type
