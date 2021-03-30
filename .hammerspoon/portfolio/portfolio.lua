@@ -115,7 +115,8 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
         for i = 1, #quotes_by_symbol, 1 do
            local quote = quotes_by_symbol[i]
            local tooltip = "Equity: " .. quote["equity"] .. ", "
-                           .. "Cost basis: " .. quote["cost_basis"]
+              .. "Cost basis: " .. quote["cost_basis"] .. ", "
+              .. "equity percent: " .. quote["equity_percent"]
            table.insert(submenu, { title   = format_menu_item(quote),
                                    fn      = format_url(quote),
                                    tooltip = tooltip})

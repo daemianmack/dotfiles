@@ -23,19 +23,26 @@
   (let [ticker-data (fetch-ticker-data (name symbol))
         quote       (select-keys ticker-data [:symbol :previousClose])
         holding     (or holding 0)
-        cost        (or cost-basis (:regularMarketPrice quote))]
+        cost        (or cost-basis (:regularMarketPrice quote))
+        gains (scale-number (* holding (- (:regularMarketPrice ticker-data)
+                                          cost))
+                            0)
+        equity (scale-number (* holding (:regularMarketPrice ticker-data))
+                             0)
+        equity-percent (if cost-basis
+                         (scale-number (/ (* holding (:regularMarketPrice ticker-data))
+                                          (* holding cost)) 2)
+                         0)]
     (assoc quote
            :type  type
            :label (or label symbol)
            :icon  icon
            :regularMarketPrice (scale-number (:regularMarketPrice ticker-data) 2)
-           :gains (scale-number (* holding (- (:regularMarketPrice ticker-data)
-                                              cost))
-                                0)
-           :equity (scale-number (* holding (:regularMarketPrice ticker-data))
-                                 0)
+           :gains gains
+           :equity equity
            :holding (scale-number holding)
-           :cost_basis (or cost-basis 0))))
+           :cost_basis (or (scale-number cost-basis 2) 0)
+           :equity_percent equity-percent)))
 
 (defn tally-data
   [symbol-data]
