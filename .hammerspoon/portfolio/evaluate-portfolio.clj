@@ -32,6 +32,8 @@
            :gains (scale-number (* holding (- (:regularMarketPrice ticker-data)
                                               cost))
                                 0)
+           :equity (scale-number (* holding (:regularMarketPrice ticker-data))
+                                 0)
            :holding (scale-number holding)
            :cost_basis (or cost-basis 0))))
 
