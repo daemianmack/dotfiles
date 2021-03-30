@@ -29,7 +29,7 @@
            :label (or label symbol)
            :icon  icon
            :regularMarketPrice (scale-number (:regularMarketPrice ticker-data) 2)
-           :value (scale-number (* holding (- (:regularMarketPrice ticker-data)
+           :gains (scale-number (* holding (- (:regularMarketPrice ticker-data)
                                               cost))
                                 0)
            :holding (scale-number holding)
@@ -37,13 +37,13 @@
 
 (defn tally-data
   [symbol-data]
-  (let [total-value (apply + (map :value symbol-data))]
-    {:total_value total-value
-     :by_symbol   (sort-by :value > symbol-data)
+  (let [total-gains (apply + (map :gains symbol-data))]
+    {:total_gains total-gains
+     :by_symbol   (sort-by :gains > symbol-data)
      :by_type     (reduce-kv
                    (fn [acc type rows]
                      (conj acc {:type type
-                                :total (apply + (map :value rows))}))
+                                :total (apply + (map :gains rows))}))
                    []
                    (group-by :type symbol-data))}))
 
@@ -61,21 +61,20 @@
 ;;  [{:symbol :BA :holding 1 :cost-basis 50}
 ;;   {:symbol :HD :holding 1 :cost-basis 25}]
 ;;
-;; and return a per-symbol listing with current value and previous
-;; close, along with a total value, like...
+;; and return a per-symbol listing along with a total value, like...
 ;;
-;;  {"total_value":375
+;;  {"total_gains":375
 ;;   "by_type" [{"type": "S", "total": 375}],
 ;;   "by_symbol":[{"symbol":"BA"
 ;;                 "regularMarketPrice":167.5
 ;;                 "previousClose":169.58
-;;                 "value":117
+;;                 "gains":117
 ;;                 "type": "S"
 ;;                 "holding":1}
 ;;                {"symbol":"HD"
 ;;                 "regularMarketPrice":283.23
 ;;                 "previousClose":280.68
-;;                 "value":258
+;;                 "gains":258
 ;;                 "type": "S"
 ;;                 "holding":1}]}
 

@@ -24,11 +24,11 @@ local format_menu_item = function(quote)
    local symbol   = string.format("%s%s",  left_pad(quote["symbol"], 8), quote["symbol"])
    local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
-   local value = 0
-   if 0 > quote["value"] then
-     value = string.format("%s-$%s", left_pad(quote["value"], 6), math.abs(quote["value"]))
+   local gains = 0
+   if 0 > quote["gains"] then
+     gains = string.format("%s-$%s", left_pad(quote["gains"], 6), math.abs(quote["gains"]))
    else
-     value = string.format("%s$%s", left_pad(quote["value"], 6), math.abs(quote["value"]))
+     gains = string.format("%s$%s", left_pad(quote["gains"], 6), math.abs(quote["gains"]))
     end
 
    local icon = " "
@@ -43,7 +43,7 @@ local format_menu_item = function(quote)
       color = bad_color
    end
 
-   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. value .. icon, { font=menu_font, color = color })
+   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. gains .. icon, { font=menu_font, color = color })
 end
 
 local format_url = function(quote)
@@ -51,8 +51,8 @@ local format_url = function(quote)
    return function() hs.urlevent.openURL(url) end
 end
 
-local format_ticker_value = function(quote)
-   local dollar_display=quote["value"]
+local format_ticker_gains = function(quote)
+   local dollar_display=quote["gains"]
    if quote["holding"] == 0 then
       dollar_display = "⌜" .. math.modf(quote["regularMarketPrice"]) .. "⌟"
    end
@@ -69,7 +69,7 @@ local format_ticker_value = function(quote)
    return val
 end
 
-local format_type_value = function(quote)
+local format_type_gains = function(quote)
    local symbol_color = good_color
    if quote["total"] < 1 then
       symbol_color = bad_color
@@ -85,7 +85,7 @@ end
 local render_portfolio = function(exitCode, stdOut, stdErr)
     local portfolio = hs.json.decode(stdOut)
     local color = good_color
-    if 0 > portfolio["total_value"] then
+    if 0 > portfolio["total_gains"] then
        color = bad_color
     end
 
@@ -94,7 +94,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
     local quotes_by_type = portfolio["by_type"]
     if #quotes_by_type > 0 then
        for i = 1, #quotes_by_type, 1 do
-          title = title .. format_type_value(quotes_by_type[i])
+          title = title .. format_type_gains(quotes_by_type[i])
           if quotes_by_type[i+1] then
              title = title .. " "
           end
@@ -104,7 +104,7 @@ local render_portfolio = function(exitCode, stdOut, stdErr)
 
     local quotes_by_symbol = portfolio["by_symbol"]
     if #quotes_by_symbol > 1 then
-       title = title .. hs.styledtext.new(portfolio["total_value"], {font = font, color = color})
+       title = title .. hs.styledtext.new(portfolio["total_gains"], {font = font, color = color})
     end
 
     menubar:setTitle(title)
