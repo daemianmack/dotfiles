@@ -20,24 +20,24 @@
 
 (defn data-for-symbol
   [{:keys [symbol label icon type holding cost-basis] :as config}]
-  (let [ticker-data (fetch-ticker-data (name symbol))
-        quote       (select-keys ticker-data [:symbol :previousClose])
-        holding     (or holding 0)
-        cost        (or cost-basis (:regularMarketPrice quote))
-        gains (scale-number (* holding (- (:regularMarketPrice ticker-data)
-                                          cost))
+  (let [ticker-data    (fetch-ticker-data (name symbol))
+        quote          (select-keys ticker-data [:symbol :previousClose])
+        holding        (or holding 0)
+        price          (:regularMarketPrice ticker-data)
+        cost           (or cost-basis price)
+        gains          (scale-number (* holding (- price cost))
                             0)
-        equity (scale-number (* holding (:regularMarketPrice ticker-data))
+        equity         (scale-number (* holding price)
                              0)
         equity-percent (if cost-basis
-                         (scale-number (/ (* holding (:regularMarketPrice ticker-data))
+                         (scale-number (/ (* holding price)
                                           (* holding cost)) 2)
                          0)]
     (assoc quote
            :type  type
            :label (or label symbol)
            :icon  icon
-           :regularMarketPrice (scale-number (:regularMarketPrice ticker-data) 2)
+           :regularMarketPrice (scale-number price 2)
            :gains gains
            :equity equity
            :holding (scale-number holding)
