@@ -22,7 +22,7 @@ end
 
 local format_menu_item = function(quote)
    local symbol   = string.format("%s%s",  left_pad(quote["symbol"], 8), quote["symbol"])
-   local price    = string.format("%s$%s", left_pad(quote["regularMarketPrice"], 8), quote["regularMarketPrice"])
+   local price    = string.format("%s$%s", left_pad(quote["price"], 8), quote["price"]) 
    local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
    local gains = 0
    if 0 > quote["gains"] then
@@ -36,10 +36,9 @@ local format_menu_item = function(quote)
      icon = icon .. quote["icon"]
    end
 
-   local previous = quote["previousClose"]
-   local color    = good_color
+   local color = good_color
 
-   if quote["regularMarketPrice"] < previous then
+   if not quote["up_on_day"] then
       color = bad_color
    end
 
@@ -54,7 +53,7 @@ end
 local format_ticker_gains = function(quote)
    local dollar_display=quote["gains"]
    if quote["holding"] == 0 then
-      dollar_display = "⌜" .. math.modf(quote["regularMarketPrice"]) .. "⌟"
+      dollar_display = "⌜" .. math.modf(quote["price"]) .. "⌟"
    end
 
    local symbol_color = good_color
