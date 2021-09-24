@@ -107,8 +107,10 @@
 
 (defn tally-data
   [symbol-data]
-  (let [total-gains (apply + (map :gains symbol-data))]
+  (let [total-gains (apply + (map :gains symbol-data))
+        total-equity (apply + (map :equity symbol-data))]
     {:total_gains total-gains
+     :total_equity total-equity
      :by_symbol   (sort-by :gains > symbol-data)
      :by_type     (reduce-kv
                    (fn [acc type rows]
