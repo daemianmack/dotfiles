@@ -16,15 +16,20 @@
   [{:keys [type symbol label icon holding cost-basis]}
    price
    up-on-day?]
-  (let [cost       (or cost-basis price)
-        gains      (* holding (- price cost))
-        equity     (* holding price)
-        equity-pct (if (pos? cost-basis)
-                     (scale-number (* 100
-                                      (/ (* holding price)
-                                         (* holding cost)))
-                                   2)
-                     0)]
+  (let [cost        (or cost-basis price)
+        gains       (* holding (- price cost))
+        equity      (* holding price)
+        spent       (* holding cost)
+        ;; Special-case multiplier, high-level indicator
+        equity-mult (when (pos? cost-basis)
+                      (let [mult (/ equity spent)]
+                        (when (< 1 mult)
+                          (scale-number mult 2))))
+        ;; General case view of equity-mult, detail-level
+        equity-pct  (if (pos? cost-basis)
+                      (scale-number (* 100 (/ equity spent))
+                                    2)
+                      0)]
     {:symbol         symbol
      :holding        (scale-number holding)
      :type           type
@@ -33,6 +38,7 @@
      :price          (scale-number price 2)
      :gains          (scale-number gains 0)
      :equity         (scale-number equity 0)
+     :equity_mult    equity-mult
      :equity_percent equity-pct
      :cost_basis     cost-basis
      :up_on_day      up-on-day?}))

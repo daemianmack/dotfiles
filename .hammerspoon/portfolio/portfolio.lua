@@ -23,7 +23,7 @@ end
 local format_menu_item = function(quote)
    local symbol   = string.format("%s%s",  left_pad(quote["symbol"], 8), quote["symbol"])
    local price    = string.format("%s$%s", left_pad(quote["price"], 8), quote["price"]) 
-   local holding  = string.format("%s%s",  left_pad(quote["holding"], 5), quote["holding"])
+   local holding  = string.format("%s%s",  left_pad(quote["holding"], 6), quote["holding"])
    local gains = 0
    if 0 > quote["gains"] then
      gains = string.format("%s-$%s", left_pad(quote["gains"], 6), math.abs(quote["gains"]))
@@ -33,7 +33,14 @@ local format_menu_item = function(quote)
 
    local icon = " "
    if quote["icon"] ~= nil then
-     icon = icon .. quote["icon"]
+      icon = icon .. quote["icon"]
+   end
+
+   local mult = ""
+   if quote["equity_mult"] ~= nil then
+      mult = string.format("%s%sˣ",  left_pad(quote["equity_mult"], 4), quote["equity_mult"])
+   else
+      mult = "     "
    end
 
    local color = good_color
@@ -42,7 +49,7 @@ local format_menu_item = function(quote)
       color = bad_color
    end
 
-   return hs.styledtext.new(symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. gains .. icon, { font=menu_font, color = color })
+   return hs.styledtext.new(mult ..  symbol .. " " .. price .. " ⋆ " .. holding .. " ≈ " .. gains .. icon, { font=menu_font, color = color })
 end
 
 local format_url = function(quote)
