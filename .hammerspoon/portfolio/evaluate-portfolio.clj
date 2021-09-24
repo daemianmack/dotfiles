@@ -19,7 +19,7 @@
   (let [cost       (or cost-basis price)
         gains      (* holding (- price cost))
         equity     (* holding price)
-        equity-pct (if cost-basis
+        equity-pct (if (pos? cost-basis)
                      (scale-number (* 100
                                       (/ (* holding price)
                                          (* holding cost)))
